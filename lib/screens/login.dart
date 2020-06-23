@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
+import 'package:lassafeverdiagnosticsystem/widgets/form_field.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -77,44 +78,50 @@ class _LoginPageState extends State<LoginPage> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: <Widget>[
-                                    FormField(screenWidth: screenWidth, hintText:"Enter your Email" ,),
-                                    SizedBox(height: 10,),
-                                    FormField(screenWidth: screenWidth,hintText: "Password",),
-                                    SizedBox(height: 10,),
-
+                                    FormFieldBox(screenWidth: screenWidth, hintText:"Enter your Email" , shudObscure: false,),
+                                    SizedBox(height: 15,),
+                                    FormFieldBox(screenWidth: screenWidth,hintText: "Password", shudObscure: true,),
+                                    SizedBox(height: 15,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
                                         FadeAnimation(1.5, Text("Forgot Password?", style: TextStyle(color: Colors.grey),)),
                                       ],
                                     ),
-                                    SizedBox(height: 5,),
-                                    Container(
-                                      height: 50,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Login',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w600,
+                                    SizedBox(height: 15,),
+                                    InkWell(
+                                      child: Container(
+                                        height: 50,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Login',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                         ),
+
+
                                       ),
-
-
                                     ),
                                     SizedBox(height: 30,),
 
                                     SizedBox(width: 10,),
-                                    FadeAnimation(1.5, Text("Sign Up",
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                      fontSize: 20),)),
+                                    GestureDetector(
+                                      onTap: (){
+                                        print('Sign up clicked');
+                                      },
+                                      child: FadeAnimation(1.5, Text("Sign Up",
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                        fontSize: 20),)),
+                                    ),
 
 
 
@@ -141,32 +148,3 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class FormField extends StatelessWidget {
-
-  final double screenWidth;
-  final String hintText;
-  FormField({this.screenWidth, this.hintText});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: screenWidth * 0.90 -20 ,
-      decoration: BoxDecoration(
-        color: Colors.white54,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-      ),
-      child:  Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextField(
-          decoration: InputDecoration(
-              hintText:hintText,
-              hintStyle: TextStyle(color: Colors.white),
-              border: InputBorder.none
-          ),
-        ),
-      ),
-    );
-  }
-
-
-}
