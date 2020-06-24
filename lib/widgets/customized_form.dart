@@ -22,7 +22,8 @@ class CustomizedFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.white,
+        fontSize: 18),
         textAlign: TextAlign.center,
         obscureText: shudObscure,
         keyboardType: keyBoardType,

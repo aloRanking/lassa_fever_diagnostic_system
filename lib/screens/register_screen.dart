@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lassafeverdiagnosticsystem/models/user_model.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 import 'package:lassafeverdiagnosticsystem/widgets/customized_form.dart';
@@ -79,6 +80,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: "Phonenumber",
                       shudObscure: false,
                       keyBoardType: TextInputType.phone,
+                    
+                      
+                       validator: (value) {
+                      if (!phoneRegex.hasMatch(value)) {
+                        return 'Please enter valid phone number';
+                      }
+                      return null;
+                    },
+                      
                     ),
                     SizedBox(
                       height: 10,
@@ -122,6 +132,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintText: "Password",
                       shudObscure: true,
                       keyBoardType: TextInputType.visiblePassword,
+                      validator: (value){
+                         if (value.isEmpty) {
+                          return 'Please input your password';
+                        } if(value.toString().length<4){
+                          return 'Password is too short';
+                        } 
+                        return null;
+                      
+                      },
                     ),
                   ],
                 )),

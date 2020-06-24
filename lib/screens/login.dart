@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     CustomizedFormField(
                                       screenWidth: screenWidth,
-                                      hintText: "Password",
+                                      hintText: "Enter your Password",
                                       shudObscure: true,
                                       keyBoardType: TextInputType.visiblePassword,
                                       validator: (value) {
