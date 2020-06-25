@@ -52,6 +52,13 @@ class CustomizedFormField extends StatelessWidget {
               width: 2.0,
             ),
           ),
+          errorBorder:OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            borderSide: BorderSide(
+              color: Colors.redAccent,
+              width: 3.0,
+            ), 
+        ),
         ),
         validator: validator,
         onSaved: saved,

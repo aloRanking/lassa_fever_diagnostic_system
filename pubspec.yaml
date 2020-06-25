@@ -12,6 +12,7 @@ dependencies:
   bloc: ^4.0.0
   flutter_bloc: ^4.0.1
   equatable: ^1.2.0
+  rxdart: ^0.24.1
 
 
   cupertino_icons: ^0.1.2

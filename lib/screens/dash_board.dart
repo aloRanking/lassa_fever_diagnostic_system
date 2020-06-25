@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lassafeverdiagnosticsystem/screens/diagnosis_screen.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 
 class DashBoard extends StatelessWidget {
@@ -21,7 +22,6 @@ class DashBoard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       RichText(
-                    
                         text: TextSpan(
                           text: 'Hello,',
                           style: TextStyle(
@@ -44,8 +44,7 @@ class DashBoard extends StatelessWidget {
                       CircleAvatar(
                         //backgroundColor: Colors.white10,
                         radius: 30,
-                                      backgroundImage: AssetImage('images/alobam.jpg') ,
-
+                        backgroundImage: AssetImage('images/alobam.jpg'),
                       )
                     ],
                   ),
@@ -65,15 +64,22 @@ class DashBoard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        DashBoardCard(
-                          dashText: 'Diagnose',
-                          color: Color(0xFF4723bc),
-                          icon: Icons.local_hospital,
+                        Expanded(
+                          child: DashBoardCard(
+                            dashText: 'Diagnose',
+                            color: Color(0xFF4723bc),
+                            icon: Icons.local_hospital,
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> DiagnoseScreen()));
+                            },
+                          ),
                         ),
-                        DashBoardCard(
-                          dashText: 'Prevention',
-                          color: Color(0xFFdd7118),
-                          icon: Icons.mode_comment,
+                        Expanded(
+                          child: DashBoardCard(
+                            dashText: 'Prevention',
+                            color: Color(0xFFdd7118),
+                            icon: Icons.mode_comment,
+                          ),
                         )
                       ],
                     ),
@@ -81,15 +87,19 @@ class DashBoard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        DashBoardCard(
-                          dashText: 'Contact',
-                          color: Color(0xFFcfea20),
-                          icon: Icons.call,
+                        Expanded(
+                          child: DashBoardCard(
+                            dashText: 'Help Line',
+                            color: Color(0xFFcfea20),
+                            icon: Icons.call,
+                          ),
                         ),
-                        DashBoardCard(
-                          dashText: 'Settings',
-                          color: Color(0xFFe222e2),
-                          icon: Icons.settings,
+                        Expanded(
+                          child: DashBoardCard(
+                            dashText: 'Settings',
+                            color: Color(0xFFe222e2),
+                            icon: Icons.settings,
+                          ),
                         )
                       ],
                     ),
@@ -98,7 +108,7 @@ class DashBoard extends StatelessWidget {
                 SizedBox(height: 30),
                 Container(
                   height: screenHeight * 0.32,
-                  width: screeWidth-20,
+                  width: screeWidth - 20,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: kSymptomsColor,
@@ -166,41 +176,47 @@ class DashBoardCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var screeWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      height: screenHeight * 0.1,
-      width: 180,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-        color: kDashBColor,
-      ),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 10,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: onPressed,
+              child: Container(
+          height: screenHeight * 0.1,
+          width: 180,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: kDashBColor,
           ),
-          Container(
-            height: 45,
-            width: 45,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-              color: color,
-            ),
-            child: Icon(
-              icon,
-              color: Colors.white,
-            ),
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                height: 45,
+                width: 45,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  color: color,
+                ),
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                dashText,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            dashText,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
