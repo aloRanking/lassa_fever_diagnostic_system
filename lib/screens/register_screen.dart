@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+   // var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Color(0xFF0E3360),
       
