@@ -24,8 +24,9 @@ class DashBoard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      FadeAnimation( 1,
-                                               RichText(
+                      FadeAnimation(
+                        1,
+                        RichText(
                           text: TextSpan(
                             text: 'Hello,',
                             style: TextStyle(
@@ -48,7 +49,7 @@ class DashBoard extends StatelessWidget {
                       ),
                       Hero(
                         tag: 1,
-                                              child: CircleAvatar(
+                        child: CircleAvatar(
                           //backgroundColor: Colors.white10,
                           radius: 30,
                           backgroundImage: AssetImage('images/alobam.jpg'),
@@ -62,12 +63,14 @@ class DashBoard extends StatelessWidget {
                   child: Text('Lassa Fever \nDiagnosis System',
                       style: TextStyle(
                         fontSize: 25,
+                        fontWeight: FontWeight.w700,
                         color: Colors.white,
                       )),
                 ),
                 SizedBox(height: 15),
-                SlideAnimation( delay: 1.5,
-                                  child: Container(
+                SlideAnimation(
+                  delay: 1.5,
+                  child: Container(
                       child: Column(
                     children: <Widget>[
                       Row(
@@ -78,8 +81,9 @@ class DashBoard extends StatelessWidget {
                               dashText: 'Diagnose',
                               color: Color(0xFF4723bc),
                               icon: Icons.local_hospital,
-                              onPressed: (){
-                                Navigator.of(context).push(_createSlideRightRoute(DiagnoseScreen()));
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .push(SizeRoute(page: DiagnoseScreen()));
                               },
                             ),
                           ),
@@ -105,11 +109,13 @@ class DashBoard extends StatelessWidget {
                           ),
                           Expanded(
                             child: DashBoardCard(
-                              dashText: 'Settings',
-                              color: Color(0xFFe222e2),
-                              icon: Icons.settings,
-                              onPressed: (){ Navigator.of(context).push(_createRoute(SettingScreen()) );
-                              }),
+                                dashText: 'Settings',
+                                color: Color(0xFFe222e2),
+                                icon: Icons.settings,
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .push(_createRoute(SettingScreen()));
+                                }),
                           )
                         ],
                       ),
@@ -117,32 +123,41 @@ class DashBoard extends StatelessWidget {
                   )),
                 ),
                 SizedBox(height: 30),
-                Container(
-                  height: screenHeight * 0.32,
-                  width: screeWidth - 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: kSymptomsColor,
-                  ),
-                  child: Stack(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 8.0,
-                          left: 16.0,
+                SlideAnimation(
+                  delay: 2,
+                  child: Container(
+                    height: screenHeight * 0.32,
+                    width: screeWidth - 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: kSymptomsColor,
+                    ),
+                    child: Stack(
+                      children: <Widget>[
+                        Container(),
+                        Image.asset(
+                          'images/fever.png',
+                          height: 230,
+                          width: 200,
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
                               'Symptoms about \nLassa Fever',
                               style: TextStyle(
                                 fontSize: 22,
                                 color: Colors.white,
                               ),
                             ),
-                            Container(
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
                               height: screenHeight * 0.1,
                               width: 180,
                               decoration: BoxDecoration(
@@ -159,11 +174,11 @@ class DashBoard extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
@@ -191,7 +206,7 @@ class DashBoardCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: onPressed,
-              child: Container(
+        child: Container(
           height: screenHeight * 0.1,
           width: 180,
           decoration: BoxDecoration(
@@ -233,7 +248,7 @@ class DashBoardCard extends StatelessWidget {
   }
 }
 
-Route _createRoute( Widget page) {
+Route _createRoute(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionDuration: Duration(milliseconds: 600),
@@ -241,7 +256,6 @@ Route _createRoute( Widget page) {
       var begin = Offset(0.0, 1.0);
       var end = Offset.zero;
       var curve = Curves.ease;
-
 
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
@@ -253,7 +267,7 @@ Route _createRoute( Widget page) {
   );
 }
 
-Route _createSlideRightRoute( Widget page) {
+Route _createSlideRightRoute(Widget page) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionDuration: Duration(milliseconds: 600),
@@ -261,7 +275,6 @@ Route _createSlideRightRoute( Widget page) {
       var begin = Offset(1.0, 0.0);
       var end = Offset.zero;
       var curve = Curves.ease;
-
 
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
@@ -271,4 +284,29 @@ Route _createSlideRightRoute( Widget page) {
       );
     },
   );
+}
+
+class SizeRoute extends PageRouteBuilder {
+  final Widget page;
+  SizeRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              Align(
+            child: SizeTransition(
+              sizeFactor: animation,
+              child: child,
+            ),
+          ),
+        );
 }

@@ -17,6 +17,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
   QuestionAnswer _ans4;
   QuestionAnswer _ans5;
   QuestionAnswer _ans6;
+  QuestionAnswer _ans7;
 
   Diagnose diagnose = Diagnose();
  int currentStep;
@@ -28,6 +29,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
  List<Step> _createSteps(BuildContext context) {
 
     List<Step> _steps = <Step>[
+
        Step(
         state: currentStep == 0
             ? _listState[1]
@@ -109,11 +111,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               style: TextStyle(color: Colors.white),),
               leading: Radio(
                   value: QuestionAnswer.Yes,
-                  groupValue: _ans1,
+                  groupValue: _ans2,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans2 = value;
+                              if(_ans2 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -131,11 +133,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               leading: Radio( 
                             
                   value: QuestionAnswer.No,
-                  groupValue: _ans1,
+                  groupValue: _ans2,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans2 = value;
+                              if(_ans2 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -171,11 +173,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               style: TextStyle(color: Colors.white),),
               leading: Radio(
                   value: QuestionAnswer.Yes,
-                  groupValue: _ans1,
+                  groupValue: _ans3,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans3 = value;
+                              if(_ans3 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -193,11 +195,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               leading: Radio( 
                             
                   value: QuestionAnswer.No,
-                  groupValue: _ans1,
+                  groupValue: _ans3,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans3 = value;
+                              if(_ans3 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -233,11 +235,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               style: TextStyle(color: Colors.white),),
               leading: Radio(
                   value: QuestionAnswer.Yes,
-                  groupValue: _ans1,
+                  groupValue: _ans4,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans4 = value;
+                              if(_ans4 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -255,11 +257,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               leading: Radio( 
                             
                   value: QuestionAnswer.No,
-                  groupValue: _ans1,
+                  groupValue: _ans4,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans4 = value;
+                              if(_ans4 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -277,9 +279,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
       ),
 
       Step(
-        state: currentStep == 3
+        state: currentStep == 4
             ? _listState[1]
-            : currentStep > 3 ? _listState[2] : _listState[0],
+            : currentStep > 4 ? _listState[2] : _listState[0],
         title: Text('Do you have dry Cough?',
         style: TextStyle(
           color: Colors.white,
@@ -295,11 +297,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               style: TextStyle(color: Colors.white),),
               leading: Radio(
                   value: QuestionAnswer.Yes,
-                  groupValue: _ans1,
+                  groupValue: _ans5,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans5 = value;
+                              if(_ans5 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -317,11 +319,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               leading: Radio( 
                             
                   value: QuestionAnswer.No,
-                  groupValue: _ans1,
+                  groupValue: _ans5,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans5 = value;
+                              if(_ans5 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -339,9 +341,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
       ),
 
       Step(
-        state: currentStep == 3
+        state: currentStep == 5
             ? _listState[1]
-            : currentStep > 3 ? _listState[2] : _listState[0],
+            : currentStep > 5 ? _listState[2] : _listState[0],
         title: Text('Are you vomitting?',
         style: TextStyle(
           color: Colors.white,
@@ -357,11 +359,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               style: TextStyle(color: Colors.white),),
               leading: Radio(
                   value: QuestionAnswer.Yes,
-                  groupValue: _ans1,
+                  groupValue: _ans6,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans6 = value;
+                              if(_ans6 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -379,11 +381,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               leading: Radio( 
                             
                   value: QuestionAnswer.No,
-                  groupValue: _ans1,
+                  groupValue: _ans6,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans6 = value;
+                              if(_ans6 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -400,9 +402,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         isActive: true,
       ),
       Step(
-        state: currentStep == 3
+        state: currentStep == 6
             ? _listState[1]
-            : currentStep > 3 ? _listState[2] : _listState[0],
+            : currentStep > 6 ? _listState[2] : _listState[0],
         title: Text('Do you have Diarrheoa?',
         style: TextStyle(
           color: Colors.white,
@@ -418,11 +420,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               style: TextStyle(color: Colors.white),),
               leading: Radio(
                   value: QuestionAnswer.Yes,
-                  groupValue: _ans1,
+                  groupValue: _ans7,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans7 = value;
+                              if(_ans7 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 
@@ -440,11 +442,11 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
               leading: Radio( 
                             
                   value: QuestionAnswer.No,
-                  groupValue: _ans1,
+                  groupValue: _ans7,
                   onChanged: (QuestionAnswer value) {                            
                             setState(() {
-                              _ans1 = value;
-                              if(_ans1 == QuestionAnswer.Yes){
+                              _ans7 = value;
+                              if(_ans7 == QuestionAnswer.Yes){
 
                               diagnose.isWeak = true;
 

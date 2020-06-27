@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lassafeverdiagnosticsystem/screens/dash_board.dart';
-import 'package:lassafeverdiagnosticsystem/screens/login.dart';
+
+import 'package:lassafeverdiagnosticsystem/screens/login_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/register_screen.dart';
 
 void main() => runApp(MyApp());
@@ -17,6 +18,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        fontFamily: 'Raleway',
 
         primarySwatch: Colors.blue,
       ),
