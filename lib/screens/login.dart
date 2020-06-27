@@ -155,8 +155,10 @@ class _LoginFormState extends State<LoginForm> {
 
                                       CustomizedFormField(
                                   screenWidth: screenWidth,
+                                  shudTextCenter: false,
                                   hintText: "Enter your Email",
                                   shudObscure: false,
+                                  icon: Icon(Icons.mail, color: Colors.white),
                                   keyBoardType: TextInputType.emailAddress,
                                   
                                   validator: (value) {
@@ -169,7 +171,9 @@ class _LoginFormState extends State<LoginForm> {
                                 ),
                                 CustomizedFormField(
                                   screenWidth: screenWidth,
+                                  shudTextCenter: false,
                                   hintText: "Enter your Password",
+                                  icon: Icon(Icons.security, color: Colors.white),
                                   shudObscure: true,
                                   keyBoardType: TextInputType.visiblePassword,
                                   validator: (value) {

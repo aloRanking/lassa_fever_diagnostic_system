@@ -16,6 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   User loginUser = User();
   final _formKey = GlobalKey<FormState>();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: <Widget>[
                       CustomizedFormField(
                         screenWidth: screenWidth,
+                        shudTextCenter: true,
                         hintText: "Full Name",
                         shudObscure: false,
                         validator: (value) {
@@ -59,6 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
+                        shudTextCenter: true,
                         hintText: "Email",
                         shudObscure: false,
                         validator: (value) {
@@ -72,6 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
+                        shudTextCenter: true,
                         hintText: "Phonenumber",
                         shudObscure: false,
                         keyBoardType: TextInputType.phone,
@@ -124,6 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
+                        shudTextCenter: true,
                         hintText: "Password",
                         shudObscure: true,
                         keyBoardType: TextInputType.visiblePassword,

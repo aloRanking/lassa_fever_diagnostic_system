@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
+import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/screens/diagnosis_screen.dart';
+import 'package:lassafeverdiagnosticsystem/screens/settings.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 
 class DashBoard extends StatelessWidget {
@@ -21,30 +24,35 @@ class DashBoard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      RichText(
-                        text: TextSpan(
-                          text: 'Hello,',
-                          style: TextStyle(
-                            color: Colors.white,
+                      FadeAnimation( 1,
+                                               RichText(
+                          text: TextSpan(
+                            text: 'Hello,',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: ' BAMI \n',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              TextSpan(
+                                text: 'We are glad to see you again',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    fontStyle: FontStyle.italic),
+                              ),
+                            ],
                           ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: ' BAMI \n',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                              text: 'We are glad to see you again',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w300,
-                                  fontStyle: FontStyle.italic),
-                            ),
-                          ],
                         ),
                       ),
-                      CircleAvatar(
-                        //backgroundColor: Colors.white10,
-                        radius: 30,
-                        backgroundImage: AssetImage('images/alobam.jpg'),
+                      Hero(
+                        tag: 1,
+                                              child: CircleAvatar(
+                          //backgroundColor: Colors.white10,
+                          radius: 30,
+                          backgroundImage: AssetImage('images/alobam.jpg'),
+                        ),
                       )
                     ],
                   ),
@@ -58,53 +66,56 @@ class DashBoard extends StatelessWidget {
                       )),
                 ),
                 SizedBox(height: 15),
-                Container(
-                    child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: DashBoardCard(
-                            dashText: 'Diagnose',
-                            color: Color(0xFF4723bc),
-                            icon: Icons.local_hospital,
-                            onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> DiagnoseScreen()));
-                            },
+                SlideAnimation( delay: 1.5,
+                                  child: Container(
+                      child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Expanded(
+                            child: DashBoardCard(
+                              dashText: 'Diagnose',
+                              color: Color(0xFF4723bc),
+                              icon: Icons.local_hospital,
+                              onPressed: (){
+                                Navigator.of(context).push(_createSlideRightRoute(DiagnoseScreen()));
+                              },
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: DashBoardCard(
-                            dashText: 'Prevention',
-                            color: Color(0xFFdd7118),
-                            icon: Icons.mode_comment,
+                          Expanded(
+                            child: DashBoardCard(
+                              dashText: 'Prevention',
+                              color: Color(0xFFdd7118),
+                              icon: Icons.mode_comment,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Expanded(
+                            child: DashBoardCard(
+                              dashText: 'Help Line',
+                              color: Color(0xFFcfea20),
+                              icon: Icons.call,
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: DashBoardCard(
-                            dashText: 'Help Line',
-                            color: Color(0xFFcfea20),
-                            icon: Icons.call,
-                          ),
-                        ),
-                        Expanded(
-                          child: DashBoardCard(
-                            dashText: 'Settings',
-                            color: Color(0xFFe222e2),
-                            icon: Icons.settings,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                )),
+                          Expanded(
+                            child: DashBoardCard(
+                              dashText: 'Settings',
+                              color: Color(0xFFe222e2),
+                              icon: Icons.settings,
+                              onPressed: (){ Navigator.of(context).push(_createRoute(SettingScreen()) );
+                              }),
+                          )
+                        ],
+                      ),
+                    ],
+                  )),
+                ),
                 SizedBox(height: 30),
                 Container(
                   height: screenHeight * 0.32,
@@ -220,4 +231,44 @@ class DashBoardCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Route _createRoute( Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionDuration: Duration(milliseconds: 600),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
+Route _createSlideRightRoute( Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionDuration: Duration(milliseconds: 600),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(1.0, 0.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

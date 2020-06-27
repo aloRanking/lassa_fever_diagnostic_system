@@ -9,6 +9,9 @@ class CustomizedFormField extends StatelessWidget {
   final Function saved;
   final TextInputType keyBoardType;
   final List<TextInputFormatter> inputFormatters;
+  final bool shudTextCenter;
+  final int maxLines;
+  final Icon icon;
   CustomizedFormField(
       {this.screenWidth,
       this.hintText,
@@ -16,7 +19,10 @@ class CustomizedFormField extends StatelessWidget {
       this.validator,
       this.saved,
       this.keyBoardType,
-      this.inputFormatters});
+      this.inputFormatters,
+      this.shudTextCenter,
+      this.maxLines, 
+      this.icon});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,13 +30,18 @@ class CustomizedFormField extends StatelessWidget {
       child: TextFormField(
         style: TextStyle(color: Colors.white,
         fontSize: 18),
-        textAlign: TextAlign.center,
+        textAlign: shudTextCenter? TextAlign.center : TextAlign.start,
         obscureText: shudObscure,
+        maxLines: maxLines ?? 1,
         keyboardType: keyBoardType,
         inputFormatters: inputFormatters,
+
+
+
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(color: Colors.white),
+          prefixIcon: icon,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
             borderSide: BorderSide(
