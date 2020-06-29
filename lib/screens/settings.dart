@@ -36,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     tag: 1,
                     child: CircleAvatar(
                       radius: 70,
-                      backgroundImage: AssetImage('images/alobam.jpg'),
+                      backgroundImage: AssetImage('images/person-default.png'),
                     ),
                   ),
                 ),

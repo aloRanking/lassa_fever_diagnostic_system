@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/screens/diagnosis_screen.dart';
+import 'package:lassafeverdiagnosticsystem/screens/prevention_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/settings.dart';
+import 'package:lassafeverdiagnosticsystem/screens/survey_screen.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 
 class DashBoard extends StatelessWidget {
@@ -52,7 +54,7 @@ class DashBoard extends StatelessWidget {
                         child: CircleAvatar(
                           //backgroundColor: Colors.white10,
                           radius: 30,
-                          backgroundImage: AssetImage('images/alobam.jpg'),
+                          backgroundImage: AssetImage('images/person-default.png'),
                         ),
                       )
                     ],
@@ -92,6 +94,10 @@ class DashBoard extends StatelessWidget {
                               dashText: 'Prevention',
                               color: Color(0xFFdd7118),
                               icon: Icons.mode_comment,
+                              onPressed: (){
+                                Navigator.of(context)
+                                    .push(SizeRoute(page: PreventionScreen()));
+                              },
                             ),
                           )
                         ],
@@ -105,6 +111,12 @@ class DashBoard extends StatelessWidget {
                               dashText: 'Help Line',
                               color: Color(0xFFcfea20),
                               icon: Icons.call,
+                              onPressed: (){
+
+                                 Navigator.of(context)
+                                      .push(_createRoute(SurveyScreen()));
+
+                              },
                             ),
                           ),
                           Expanded(
