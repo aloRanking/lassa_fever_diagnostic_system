@@ -161,7 +161,7 @@ Container _textFormFieldContainer(BuildContext context, var _formKey) {
                     screenWidth: screenWidth,
                     shudTextCenter: false,
                     hintText: "Enter your Password",
-                    icon: Icon(Icons.security, color: Colors.white),
+                    icon: Icon(Icons.lock, color: Colors.white),
                     shudObscure: true,
                     keyBoardType: TextInputType.visiblePassword,
                     validator: (value) {
