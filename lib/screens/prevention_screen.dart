@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 
 class PreventionScreen extends StatelessWidget {
@@ -16,24 +17,32 @@ class PreventionScreen extends StatelessWidget {
           SingleChildScrollView(
                       child: Column(
               children: <Widget>[
-                PreventionCard( 
-                  titleText: 'Personal Hygine',
-                  subText: 'Wash Hands with soap under running water',
-                  imageLink: 'images/washing-hands.png',),
-                  PreventionCard( 
-                  titleText: 'Food Hygine',
-                  subText: 'Cook food properly and \nkeep food from rodent',
-                  imageLink: 'images/cooking-pot.png',),
+                SlideAnimation(delay: 1,
+                                  child: PreventionCard( 
+                    titleText: 'Personal Hygine',
+                    subText: 'Wash Hands with soap under running water',
+                    imageLink: 'images/washing-hands.png',),
+                ),
+                  SlideAnimation(delay: 1.2,
+                                      child: PreventionCard( 
+                    titleText: 'Food Hygine',
+                    subText: 'Cook food properly and \nkeep food from rodent',
+                    imageLink: 'images/cooking-pot.png',),
+                  ),
 
-                  PreventionCard( 
-                  titleText: 'Proper Sanitation',
-                  subText: 'Keep House and Environment clean',
-                  imageLink: 'images/cleaning.png'),
+                  SlideAnimation(delay: 1.3,
+                                      child: PreventionCard( 
+                    titleText: 'Proper Sanitation',
+                    subText: 'Keep House and Environment clean',
+                    imageLink: 'images/cleaning.png'),
+                  ),
 
-                  PreventionCard( 
-                  titleText: 'Keep Rodents Away',
-                  subText: 'Block holes and \nkeep rodents away',
-                  imageLink: 'images/no-rat.png'),
+                  SlideAnimation(delay: 1.4,
+                                      child: PreventionCard( 
+                    titleText: 'Keep Rodents Away',
+                    subText: 'Block holes and \nkeep rodents away',
+                    imageLink: 'images/no-rat.png'),
+                  ),
               ],
             ),
           )
@@ -52,6 +61,8 @@ class PreventionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Stack(
@@ -61,7 +72,7 @@ class PreventionCard extends StatelessWidget {
 
            Container(
           height: 120,
-          width: 300,
+          width: screenWidth*0.65,
           decoration: BoxDecoration(
             color: Colors.lightBlue[600],
             borderRadius: BorderRadius.all(Radius.circular(15)), 
@@ -125,7 +136,7 @@ class PreventionCard extends StatelessWidget {
            
            
                     child: Image.asset(imageLink,
-                    height: 150,
+                    height: screenHeight*0.20,
                ),
          )
      

@@ -3,12 +3,12 @@ import 'package:lassafeverdiagnosticsystem/models/user_model.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 import 'package:lassafeverdiagnosticsystem/widgets/customized_form.dart';
 
-class SettingScreen extends StatefulWidget {
+class Profilescreen extends StatefulWidget {
   @override
-  _SettingScreenState createState() => _SettingScreenState();
+  _ProfilescreenState createState() => _ProfilescreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _ProfilescreenState extends State<Profilescreen> {
   final _formKey = GlobalKey<FormState>();
   User loginUser = User();
 

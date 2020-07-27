@@ -88,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         shudObscure: false,
                         keyBoardType: TextInputType.phone,
                         validator: (value) {
-                          if (!phoneRegex.hasMatch(value)) {
+                          if (value.isEmpty) {
                             return 'Please enter valid phone number';
                           }
                           return null;
