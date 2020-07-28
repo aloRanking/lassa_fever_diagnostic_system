@@ -1,18 +1,19 @@
 import 'package:dio/dio.dart' ;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as fluSecure;
+import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
 import 'package:lassafeverdiagnosticsystem/models/token.dart';
 
 //import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
 class UserRepository {
-  static String _baseUrl = 'https://foodvendor-alo.herokuapp.com/api/v1';
+  static String _baseUrl = 'https://lassa-fever-diagnosis.herokuapp.com/api/v1/lfds';
 
   final storage = new fluSecure.FlutterSecureStorage();
 
   String loginUrl = '$_baseUrl/authenticate';
-  String getMenuListUrl = '$_baseUrl/menus';
+  String registerURL = '$_baseUrl/register';
 
 /* static BaseOptions options = BaseOptions(
    baseUrl: "$_baseUrl",
@@ -46,6 +47,23 @@ class UserRepository {
 
       return null;
     }
+  }
+
+  Future createMember(RegUser user) async{
+    try {
+      Response response = await _dio.post(
+        registerURL,
+        data: user.toJson(),
+      );
+      print(response);
+
+   
+    } catch (e) {
+     
+
+      return null;
+    }
+
   }
 
 
