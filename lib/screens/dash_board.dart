@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
@@ -5,10 +7,16 @@ import 'package:lassafeverdiagnosticsystem/screens/diagnosis_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/prevention_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/profile_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/survey_screen.dart';
+import 'package:lassafeverdiagnosticsystem/utils/JwtUtil.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashBoard extends StatelessWidget {
+
+  final String token;
+
+  DashBoard({Key key, this.token}) : super(key: key);
+
   _launchURL() async {
     const url = 'tel:0800 970000 10';
     if (await canLaunch(url)) {
@@ -18,10 +26,17 @@ class DashBoard extends StatelessWidget {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     var screeWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
+
+     var payload= parseJwt(token);
+
+
+   // var payload = json.decode(utf8.decode(base64Url.decode(base64.normalize(token[1]))));
     return Scaffold(
       backgroundColor: Color(0xFF0E3360),
       body: SafeArea(
@@ -51,7 +66,7 @@ class DashBoard extends StatelessWidget {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(
-                                  text: 'We are glad to see you again',
+                                  text: 'We are glad to see you again \n ${payload['sub']} ',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w300,
                                       fontStyle: FontStyle.italic),
