@@ -49,7 +49,7 @@ class UserRepository {
     }
   }
 
-  Future createMember(RegUser user) async{
+  Future createMember({RegUser user}) async{
     try {
       Response response = await _dio.post(
         registerURL,
@@ -112,13 +112,14 @@ class UserRepository {
     return;
   }
 
-  Future<bool> hasToken() async {
+  Future<String> hasToken() async {
     String value = await storage.read(key: 'token');
-    if (value==null) {
+    return value;
+   /*  if (value==null) {
       return false;
     } else {
       return true;
-    }
+    } */
   }
 
  
