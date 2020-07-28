@@ -1,29 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
 import 'package:lassafeverdiagnosticsystem/screens/dash_board.dart';
 
-import 'package:lassafeverdiagnosticsystem/screens/login_screen.dart';
-import 'package:lassafeverdiagnosticsystem/screens/register_screen.dart';
+import 'package:lassafeverdiagnosticsystem/screens/splash_screen.dart';
+import 'package:lassafeverdiagnosticsystem/widgets/loading_indicator.dart';
 
-void main() => runApp(MyApp());
+import 'bloc/Authentication/index.dart';
+import 'bloc/Login/Login_page.dart';
 
-class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
+class SimpleBlocDelegate extends BlocDelegate {
   @override
-  _MyAppState createState() => _MyAppState();
+  void onEvent(Bloc bloc, Object event) {
+    print(event);
+    super.onEvent(bloc, event);
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    print(transition);
+    super.onTransition(bloc, transition);
+  }
+
+  @override
+  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(bloc, error, stackTrace);
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+
+
+void main() {
+   BlocSupervisor.delegate = SimpleBlocDelegate();
+  final userRepository = UserRepository();
+  runApp( BlocProvider<AuthenticationBloc>(
+      create: (context) {
+        return AuthenticationBloc(userRepository: userRepository)
+          ..add(AuthenticationStarted());
+      },
+      child:MyApp(userRepository: userRepository),
+    ),);
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+
+   final UserRepository userRepository;
+
+  MyApp({Key key, @required this.userRepository}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: 'Raleway',
-
+       
         primarySwatch: Colors.blue,
+        // This makes the visual density adapt to the platform that you run
+        // the app on. For desktop platforms, the controls will be smaller and
+        // closer together (more dense) than on mobile platforms.
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
+     home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, state) {
+          
+          if (state is AuthenticationInitial) {
+            return SplashPage();
+          }
+          if (state is AuthenticationSuccess) {
+            return DashBoard();
+          }
+          if (state is ErrorAuthenticationState) {
+            return LoginPage(userRepository: userRepository);
+          }
+          if (state is AuthenticationInProgress) {
+            return LoadingIndicator();
+          }
+        },
+      ),
     );
+    
   }
 }
-

@@ -12,6 +12,7 @@ class CustomizedFormField extends StatelessWidget {
   final bool shudTextCenter;
   final int maxLines;
   final Icon icon;
+  
   CustomizedFormField(
       {this.screenWidth,
       this.hintText,
