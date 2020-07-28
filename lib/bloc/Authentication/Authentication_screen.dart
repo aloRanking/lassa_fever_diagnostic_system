@@ -67,7 +67,7 @@ class AuthenticationScreenState extends State<AuthenticationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(currentState.hello),
+                  Text(currentState.token),
                 ],
               ),
             );

@@ -27,7 +27,7 @@ class LoadAuthenticationEvent extends AuthenticationEvent {
     try {
       yield AuthenticationInitial();
       await Future.delayed(Duration(seconds: 1));
-      yield AuthenticationSuccess('Hello world');
+     // yield AuthenticationSuccess('Hello world');
     } catch (_, stackTrace) {
       developer.log('$_', name: 'LoadAuthenticationEvent', error: _, stackTrace: stackTrace);
       yield ErrorAuthenticationState( _?.toString());
@@ -43,10 +43,10 @@ class AuthenticationStarted extends AuthenticationEvent {
   @override
   Stream<AuthenticationState> applyAsync({AuthenticationState currentState, AuthenticationBloc bloc}) async*{
     
-     final bool hasToken = await bloc.userRepository.hasToken();
+     final String hasToken = await bloc.userRepository.hasToken();
 
-    if (hasToken) {
-      yield AuthenticationSuccess('Authentication Successful');
+    if (hasToken != null) {
+      yield AuthenticationSuccess(token: hasToken);
     } else {
       yield ErrorAuthenticationState('Authentication Failed');
     }
@@ -78,7 +78,7 @@ class AuthenticationLoggedIn extends AuthenticationEvent {
         
       } else {
         await bloc.userRepository.persistToken(token);
-    yield AuthenticationSuccess("Authentication Successful");
+    yield AuthenticationSuccess(token: token);
 
       }
     

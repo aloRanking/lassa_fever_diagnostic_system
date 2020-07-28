@@ -20,12 +20,12 @@ class AuthenticationInitial extends AuthenticationState {
 
 /// Initialized
 class AuthenticationSuccess extends AuthenticationState {
-  final String hello;
+  final String token;
 
-  AuthenticationSuccess(this.hello) : super([hello]);
+  AuthenticationSuccess({this.token}) : super([token]);
 
   @override
-  String toString() => 'AuthenticationSuccess $hello';
+  String toString() => 'AuthenticationSuccess $token';
 
 }
 

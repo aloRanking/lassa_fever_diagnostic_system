@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
 import 'package:lassafeverdiagnosticsystem/screens/dash_board.dart';
 
@@ -47,6 +48,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
    final UserRepository userRepository;
+   /* final storage = new FlutterSecureStorage();
+
+   Future<String> hasToken() async {
+    String value = await storage.read(key: 'token');
+    return value;
+    
+  } */
 
   MyApp({Key key, @required this.userRepository}) : super(key: key);
   @override
@@ -65,10 +73,14 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           
           if (state is AuthenticationInitial) {
+            
             return SplashPage();
           }
           if (state is AuthenticationSuccess) {
-            return DashBoard();
+            
+            
+            
+            return DashBoard(token: state.token,);
           }
           if (state is ErrorAuthenticationState) {
             return LoginPage(userRepository: userRepository);
