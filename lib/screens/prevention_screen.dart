@@ -107,7 +107,7 @@ class PreventionCard extends StatelessWidget {
                   child: Text(
                     titleText,
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white
                     ),
@@ -121,7 +121,7 @@ class PreventionCard extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -136,7 +136,7 @@ class PreventionCard extends StatelessWidget {
            
            
                     child: Image.asset(imageLink,
-                    height: screenHeight*0.20,
+                    height: screenHeight*0.16,
                ),
          )
      
