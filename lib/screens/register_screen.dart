@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
 import 'package:lassafeverdiagnosticsystem/models/user_model.dart';
+import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 import 'package:lassafeverdiagnosticsystem/widgets/customized_form.dart';
 
@@ -13,7 +15,7 @@ class _RegisterPageState extends State<RegisterPage> {
   List<String> _gender = ['Male', 'Female']; // Option 2
   String _selectedGender; // Option 2
 
-  User loginUser = User();
+  RegUser regUser = RegUser();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -58,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       CustomizedFormField(
                         screenWidth: screenWidth,
                         shudTextCenter: true,
-                        hintText: "Full Name",
+                        hintText: "First Name",
                         shudObscure: false,
                         validator: (value) {
                           if (value.isEmpty) {
@@ -66,6 +68,22 @@ class _RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
+                        saved: (String val) =>
+                            setState(() => regUser.firstname = val),
+                      ),
+                      CustomizedFormField(
+                        screenWidth: screenWidth,
+                        shudTextCenter: true,
+                        hintText: "Last Name",
+                        shudObscure: false,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        saved: (String val) =>
+                            setState(() => regUser.lastname = val),
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
@@ -79,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                         saved: (String val) =>
-                            setState(() => loginUser.email = val),
+                            setState(() => regUser.email = val),
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
@@ -93,6 +111,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
+                        saved: (String val) =>
+                            setState(() => regUser.phonenumber = val),
+
                       ),
                       SizedBox(
                         height: 10,
@@ -122,6 +143,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                 onChanged: (newValue) {
                                   setState(() {
                                     _selectedGender = newValue;
+                                    regUser.gender = newValue;
+                                    
                                   });
                                 }),
                           ),
@@ -143,8 +166,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           if (value.toString().length < 4) {
                             return 'Password is too short';
                           }
-                          return null;
+                          return null;                          
                         },
+                         saved: (String val) =>
+                            setState(() => regUser.password = val),
+
+                        
+                        
                       ),
                     ],
                   )),
@@ -157,10 +185,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   onTap: () {
                     // Validate returns true if the form is valid, otherwise false.
                     if (_formKey.currentState.validate()) {
+                       _formKey.currentState.save();
+
+                       UserRepository userRepository = UserRepository();
+
+                       userRepository.createMember(regUser);
                       // If the form is valid, display a snackbar. In the real world,
                       // you'd often call a server or save the information in a database.
-                      Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text('Processing Data')));
+                     /*  Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('Processing Data'))); */
                     }
                   },
                   child: Container(
