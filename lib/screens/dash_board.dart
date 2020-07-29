@@ -9,6 +9,7 @@ import 'package:lassafeverdiagnosticsystem/screens/profile_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/survey_screen.dart';
 import 'package:lassafeverdiagnosticsystem/utils/JwtUtil.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
+import 'package:lassafeverdiagnosticsystem/widgets/dashboard_sub.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DashBoard extends StatelessWidget {
@@ -47,61 +48,7 @@ class DashBoard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        FadeAnimation(
-                          1,
-                          RichText(
-                            text: TextSpan(
-                              text: 'Hello,',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: ' BAMI \n',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                TextSpan(
-                                  text: 'We are glad to see you again \n ${payload['sub']} ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      fontStyle: FontStyle.italic),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Hero(
-                          tag: 1,
-                          child: CircleAvatar(
-                            //backgroundColor: Colors.white10,
-                            radius: 30,
-                            backgroundImage:
-                                AssetImage('images/person-default.png'),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                        child: Text('Lassa Fever \nDiagnosis System',
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            )),
-                      ),
-                      Spacer(),
-                    ],
-                  ),
+                  DashBoardHeading(email: payload['sub']),
                   SizedBox(height: 10),
                   SlideAnimation(
                     delay: 1.5,
