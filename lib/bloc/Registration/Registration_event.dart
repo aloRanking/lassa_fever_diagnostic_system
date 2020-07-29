@@ -48,9 +48,17 @@ class RegistrationButtonPressed extends RegistrationEvent {
       {RegistrationState currentState, RegistrationBloc bloc}) async* {
     try {
       yield RegistrationProgress();
-      await bloc.userRepository.createMember(user: regUser);
-      bloc.authenticationBloc.add(AuthenticationStarted());
+     final isCreated = await bloc.userRepository.createMember(user: regUser);
+
+     if (isCreated) {
+       bloc.authenticationBloc.add(AuthenticationStarted());
       yield InRegistrationState('Registration Successful');
+
+       
+     } else {
+       yield ErrorRegistrationState('Unable to Register');
+     }
+      
     } catch (_, stackTrace) {
       developer.log('$_', name: 'LoadRegistrationEvent', error: _, stackTrace: stackTrace);
       yield ErrorRegistrationState( _?.toString());
