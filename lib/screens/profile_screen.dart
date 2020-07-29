@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_event.dart';
+import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
 import 'package:lassafeverdiagnosticsystem/models/user_model.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 import 'package:lassafeverdiagnosticsystem/widgets/customized_form.dart';
 
 class Profilescreen extends StatefulWidget {
+  final RegUser regUser;
+  const Profilescreen({
+    Key key,
+    this.regUser,
+  }) : super(key: key);
+  
   @override
   _ProfilescreenState createState() => _ProfilescreenState();
 }
@@ -15,11 +23,15 @@ class _ProfilescreenState extends State<Profilescreen> {
   final _formKey = GlobalKey<FormState>();
   User loginUser = User();
 
+  initialValue(val) {
+  return TextEditingController(text: val);
+}
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     List<String> _gender = ['Male', 'Female']; // Option 2
-    String _selectedGender; // O
+    String _selectedGender = widget.regUser.getGender;// O
 
     return Scaffold(
       backgroundColor: kBackgroundColor,
@@ -56,6 +68,9 @@ class _ProfilescreenState extends State<Profilescreen> {
                   child: InkWell(
                       onTap: () {
                        BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedOut());
+                     /*   if (state ) {
+                         
+                       } */
                       },
                       child: Text('LogOut',
                       style:TextStyle(color:Colors.white),),
@@ -73,7 +88,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                         CustomizedFormField(
                           screenWidth: screenWidth,
                           shudTextCenter: false,
-                          hintText: "Full Name",
+                          hintText: "Full NAme",
                           icon: Icon(Icons.person, color: Colors.white),
                           shudObscure: false,
                           validator: (value) {
@@ -82,6 +97,8 @@ class _ProfilescreenState extends State<Profilescreen> {
                             }
                             return null;
                           },
+
+                          controller: initialValue(widget.regUser.firstname ),
                         ),
                         CustomizedFormField(
                           screenWidth: screenWidth,
@@ -95,6 +112,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                             }
                             return null;
                           },
+                          controller: initialValue(widget.regUser.email ),
                           saved: (String val) =>
                               setState(() => loginUser.email = val),
                         ),
@@ -111,6 +129,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                             }
                             return null;
                           },
+                          controller: initialValue(widget.regUser.phonenumber )
                         ),
                         SizedBox(
                           height: 10,
@@ -160,6 +179,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                             }
                             return null;
                           },
+                          controller: initialValue(widget.regUser.resstate )
                         ),
                         CustomizedFormField(
                           screenWidth: screenWidth,
@@ -187,6 +207,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                             }
                             return null;
                           },
+                          controller: initialValue(widget.regUser.reshome_address )
                         ),
                         CustomizedFormField(
                           screenWidth: screenWidth,
