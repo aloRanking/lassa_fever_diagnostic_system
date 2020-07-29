@@ -50,19 +50,26 @@ class UserRepository {
     }
   }
 
-  Future createMember({RegUser user}) async{
+  Future<bool> createMember({RegUser user}) async{
     try {
       Response response = await _dio.post(
         registerURL,
         data: user.toJson(),
       );
-      print(response);
+      //print(response);
+      if (response.statusCode == 201 ||response.statusCode == 200) {
+        return true;
+        
+      } else {
+
+        return false;
+      }
 
    
     } catch (e) {
      
 
-      return null;
+      return false;
     }
 
   }
