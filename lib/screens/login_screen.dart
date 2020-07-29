@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Login/index.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Registration/Registration_page.dart';
 
 import 'package:lassafeverdiagnosticsystem/models/user_model.dart';
+import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
 
 import 'package:lassafeverdiagnosticsystem/screens/dash_board.dart';
 import 'package:lassafeverdiagnosticsystem/screens/register_screen.dart';
@@ -256,8 +258,9 @@ class _LoginFormState extends State<LoginForm> {
                               ),
                               GestureDetector(
                                 onTap: () {
+                                  UserRepository userRepository = UserRepository();
                                   Navigator.push(
-                                      context, _createRoute(RegisterPage()));
+                                      context, _createRoute(RegistrationPage(userRepository: userRepository ,)));
                                   print('Sign up clicked');
                                 },
                                 child: FadeAnimation(
