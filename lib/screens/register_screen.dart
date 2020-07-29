@@ -214,6 +214,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
                      }
 
+                     if (state is ErrorRegistrationState) {
+                       Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text('${state.errorMessage}')));
+                     }
+
                      if(state is InRegistrationState){
 
                         Scaffold.of(context).showSnackBar(
