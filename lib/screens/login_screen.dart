@@ -93,194 +93,201 @@ class _LoginFormState extends State<LoginForm> {
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-        return Stack(
-          children: <Widget>[
-            Container(
-              height: screenHeight,
-            ),
-            _backgroundCover(context),
-            Positioned(
-              top: screenHeight * 0.28,
-              left: 15,
-              right: 15,
-              child: Container(
-                margin: EdgeInsets.only(top: 20.0),
-                padding: EdgeInsets.all(10),
-                height: screenHeight * 0.62,
-                width: screenWidth * 0.90,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Color(0xFF264772),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      FadeAnimation(
-                          1,
-                          Text(
-                            "Login",
-                            style: TextStyle(color: Colors.white, fontSize: 40),
-                          )),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      FadeAnimation(
-                          1.2,
-                          Text(
-                            "Lassa Fever Diagnostic System",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          )),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Column(
-                            children: <Widget>[
-                              Form(
-                                  key: _formKey,
-                                  child: Column(
-                                    children: <Widget>[
-                                      CustomizedFormField(
-                                        screenWidth: screenWidth,
-                                        shudTextCenter: false,
-                                        hintText: "Enter your Email",
-                                        shudObscure: false,
-                                        icon: Icon(Icons.mail,
-                                            color: Colors.white),
-                                        keyBoardType:
-                                            TextInputType.emailAddress,
+        return SingleChildScrollView(
+                  child: Stack(
+            children: <Widget>[
+              Container(
+                height: screenHeight,
+              ),
+              _backgroundCover(context),
+              Positioned(
+                top: screenHeight * 0.28,
+                left: 15,
+                right: 15,
+                child: Container(
+                  margin: EdgeInsets.only(top: 20.0),
+                  padding: EdgeInsets.all(10),
+                  height: screenHeight * 0.62,
+                  width: screenWidth * 0.90,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Color(0xFF264772),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 8,
+                        ),
+                        FadeAnimation(
+                            1,
+                            Text(
+                              "Login",
+                              style: TextStyle(color: Colors.white, fontSize: 40),
+                            )),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        FadeAnimation(
+                            1.2,
+                            Text(
+                              "Lassa Fever Diagnostic System",
+                              style: TextStyle(color: Colors.white, fontSize: 18),
+                            )),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Column(
+                              children: <Widget>[
+                                Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      children: <Widget>[
+                                        CustomizedFormField(
+                                          screenWidth: screenWidth,
+                                          shudTextCenter: false,
+                                          hintText: "Enter your Email",
+                                          shudObscure: false,
+                                          icon: Icon(Icons.mail,
+                                              color: Colors.white),
+                                          keyBoardType:
+                                              TextInputType.emailAddress,
 
-                                        validator: (value) {
-                                          if (!emailRegex.hasMatch(value)) {
-                                            return 'Please enter a valid Email';
+                                          validator: (value) {
+                                            if (!emailRegex.hasMatch(value)) {
+                                              return 'Please enter a valid Email';
+                                            }
+                                            return null;
+                                          },
+
+                                           saved: (String val) => setState(() =>  _username= val),
+                                        ),
+                                        CustomizedFormField(
+                                          screenWidth: screenWidth,
+                                          shudTextCenter: false,
+                                          hintText: "Enter your Password",
+                                          icon: Icon(Icons.lock,
+                                              color: Colors.white),
+                                          shudObscure: true,
+                                          keyBoardType:
+                                              TextInputType.visiblePassword,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              return 'Please enter some text';
+                                            }
+                                            return null;
+                                          },
+
+                                          saved: (String val) => setState(() =>  _password= val),
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: <Widget>[
+                                            FadeAnimation(
+                                                1.5,
+                                                Text(
+                                                  "Forgot Password?",
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                )),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        RaisedButton(
+                                          onPressed: (){
+
+                                             if (_formKey.currentState.validate()) {
+                                             _formKey.currentState.save();
+
+                                             _onLoginButtonPressed();
+
+                                            //  Navigator.push(context,
+                                            //  MaterialPageRoute(builder: (context)=>DashBoard()));
+
+                                            // If the form is valid, display a snackbar. In the real world,
+                                            // you'd often call a server or save the information in a database.
+
+                                            Scaffold.of(context).showSnackBar(
+                                                SnackBar(
+                                                    content:
+                                                        Text('Processing Data')));
                                           }
-                                          return null;
-                                        },
-
-                                         saved: (String val) => setState(() =>  _username= val),
-                                      ),
-                                      CustomizedFormField(
-                                        screenWidth: screenWidth,
-                                        shudTextCenter: false,
-                                        hintText: "Enter your Password",
-                                        icon: Icon(Icons.lock,
-                                            color: Colors.white),
-                                        shudObscure: true,
-                                        keyBoardType:
-                                            TextInputType.visiblePassword,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter some text';
-                                          }
-                                          return null;
-                                        },
-
-                                        saved: (String val) => setState(() =>  _password= val),
-                                      ),
-                                      SizedBox(
-                                        height: 8,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: <Widget>[
-                                          FadeAnimation(
-                                              1.5,
-                                              Text(
-                                                "Forgot Password?",
-                                                style: TextStyle(
-                                                    color: Colors.grey),
-                                              )),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      RaisedButton(
-                                        onPressed: (){
-
-                                           if (_formKey.currentState.validate()) {
-                                           _formKey.currentState.save();
-
-                                           _onLoginButtonPressed();
-
-                                          //  Navigator.push(context,
-                                          //  MaterialPageRoute(builder: (context)=>DashBoard()));
-
-                                          // If the form is valid, display a snackbar. In the real world,
-                                          // you'd often call a server or save the information in a database.
-
-                                          Scaffold.of(context).showSnackBar(
-                                              SnackBar(
-                                                  content:
-                                                      Text('Processing Data')));
-                                        }
-                                          
-                                          /* state is! LoginInProgress
-                                            ? _onLoginButtonPressed
-                                            : null  */
                                             
-                                            },
-                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),                   
+                                            /* state is! LoginInProgress
+                                              ? _onLoginButtonPressed
+                                              : null  */
+                                              
+                                              },
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),                   
  
-                                       
+                                         
 
-                                        color: Colors.lightBlue,
-                                        elevation: 10.0,
-                                        padding: EdgeInsets.all(15),
+                                          color: Colors.lightBlue,
+                                          elevation: 10.0,
+                                          padding: EdgeInsets.all(15),
 
-                                        child: Center(
-                                          child: Text(
-                                            'Login',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                            ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                'LOGIN',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              SizedBox(width:15),
+                                              Container(
+                                          child: state is LoginInProgress
+                                            ? CircularProgressIndicator(backgroundColor: Colors.white,)
+                                            : null,
+                                        ),
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        child: state is LoginInProgress
-                                            ? CircularProgressIndicator()
-                                            : null,
-                                      ),
-                                    ],
-                                  )),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  UserRepository userRepository = UserRepository();
-                                  Navigator.push(
-                                      context, _createRoute(RegistrationPage(userRepository: userRepository ,)));
-                                  print('Sign up clicked');
-                                },
-                                child: FadeAnimation(
-                                    1.5,
-                                    Text(
-                                      "Sign Up",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
+                                        
+                                      ],
                                     )),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    UserRepository userRepository = UserRepository();
+                                    Navigator.push(
+                                        context, _createRoute(RegistrationPage(userRepository: userRepository ,)));
+                                    print('Sign up clicked');
+                                  },
+                                  child: FadeAnimation(
+                                      1.5,
+                                      Text(
+                                        "Sign Up",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      )),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       }),
     );
