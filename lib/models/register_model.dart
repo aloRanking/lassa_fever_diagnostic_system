@@ -10,6 +10,7 @@ class RegUser {
    String image;
    String res_state;
    String res_home_address;
+   
  String get firstname => first_name;
 
  set firstname(String value) => first_name = value;
