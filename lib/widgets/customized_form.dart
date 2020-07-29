@@ -12,6 +12,7 @@ class CustomizedFormField extends StatelessWidget {
   final bool shudTextCenter;
   final int maxLines;
   final Icon icon;
+  final TextEditingController controller;
   
   CustomizedFormField(
       {this.screenWidth,
@@ -23,12 +24,14 @@ class CustomizedFormField extends StatelessWidget {
       this.inputFormatters,
       this.shudTextCenter,
       this.maxLines, 
-      this.icon});
+      this.icon,
+      this.controller});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextFormField(
+        
         style: TextStyle(color: Colors.white,
         fontSize: 18),
         textAlign: shudTextCenter? TextAlign.center : TextAlign.start,
@@ -36,6 +39,7 @@ class CustomizedFormField extends StatelessWidget {
         maxLines: maxLines ?? 1,
         keyboardType: keyBoardType,
         inputFormatters: inputFormatters,
+        controller: controller,
 
 
 
