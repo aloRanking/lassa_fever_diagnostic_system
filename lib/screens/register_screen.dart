@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Login/index.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Registration/Registration_bloc.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Registration/index.dart';
 import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
 import 'package:lassafeverdiagnosticsystem/models/user_model.dart';
 import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
@@ -22,7 +26,26 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
+
+     _onRegisterButtonPressed() {
+      BlocProvider.of<RegistrationBloc>(context).add(RegistrationButtonPressed(regUser: regUser));
+    }
+
+    return BlocListener<RegistrationBloc, RegistrationState>(
+      listener: (context, state) {
+        if (state is ErrorRegistrationState) {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${state.errorMessage}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+
+    child:BlocBuilder<RegistrationBloc, RegistrationState>(
+      builder: (context,state){ 
+        return Scaffold(
       backgroundColor: Color(0xFF0E3360),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -69,7 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                         saved: (String val) =>
-                            setState(() => regUser.firstname = val),
+                            setState(() => regUser.firstname = val.trim()),
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
@@ -83,7 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                         saved: (String val) =>
-                            setState(() => regUser.lastname = val),
+                            setState(() => regUser.lastname = val.trim()),
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
@@ -97,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                         saved: (String val) =>
-                            setState(() => regUser.email = val),
+                            setState(() => regUser.email = val.trim()),
                       ),
                       CustomizedFormField(
                         screenWidth: screenWidth,
@@ -112,7 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                         saved: (String val) =>
-                            setState(() => regUser.phonenumber = val),
+                            setState(() => regUser.phonenumber = val.trim()),
 
                       ),
                       SizedBox(
@@ -169,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;                          
                         },
                          saved: (String val) =>
-                            setState(() => regUser.password = val),
+                            setState(() => regUser.password = val.trim()),
 
                         
                         
@@ -179,38 +202,48 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: GestureDetector(
-                  onTap: () {
-                    // Validate returns true if the form is valid, otherwise false.
-                    if (_formKey.currentState.validate()) {
-                       _formKey.currentState.save();
+              GestureDetector(
+                onTap: () {
+                  // Validate returns true if the form is valid, otherwise false.
+                  if (_formKey.currentState.validate()) {
+                     _formKey.currentState.save();
 
-                       UserRepository userRepository = UserRepository();
+                     _onRegisterButtonPressed();
 
-                       userRepository.createMember(regUser);
-                      // If the form is valid, display a snackbar. In the real world,
-                      // you'd often call a server or save the information in a database.
-                     /*  Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text('Processing Data'))); */
-                    }
-                  },
-                  child: Container(
-                    width: screenWidth * 0.90 - 20,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      color: Colors.blue,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
+                     
+
+                     }
+
+                     if(state is InRegistrationState){
+
+                        Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text('${state.hello}')));
+
+
+
+                    /*  UserRepository userRepository = UserRepository();
+
+                     userRepository.createMember(user: regUser); */
+                    // If the form is valid, display a snackbar. In the real world,
+                    // you'd often call a server or save the information in a database.
+                   /*  Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text('Processing Data'))); */
+                  }
+                },
+                child: Container(
+                  width: screenWidth * 0.90 - 20,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    color: Colors.blue,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -219,6 +252,11 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 height: 10,
               ),
+              Container(
+                                        child: state is RegistrationProgress
+                                            ? CircularProgressIndicator()
+                                            : null,
+                                      ),
               Text('Already have an Account ?',
                   style: TextStyle(
                     fontSize: 20,
@@ -249,6 +287,8 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+      },
+    ),);
   }
 }
 
