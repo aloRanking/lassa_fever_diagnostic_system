@@ -14,6 +14,7 @@ class UserRepository {
 
   String loginUrl = '$_baseUrl/authenticate';
   String registerURL = '$_baseUrl/register';
+  String getUserURL = '$_baseUrl/user';
 
 /* static BaseOptions options = BaseOptions(
    baseUrl: "$_baseUrl",
@@ -63,6 +64,37 @@ class UserRepository {
 
       return null;
     }
+
+  }
+
+  Future<RegUser> getUserByMail(String userEmail) async{
+
+    String value = await storage.read(key: 'token');
+
+ try {
+      Response response = await _dio.post(
+        getUserURL,
+        data: { 'email': userEmail},
+        options: Options(
+       headers: {'Authorization': 'Bearer $value'}
+     )
+      );
+      print(response);
+
+      if (response.statusCode == 200) {
+
+        return RegUser.fromJson(response.toString());
+        
+      }
+
+   
+    } catch (e) {
+     
+
+      return null;
+    }
+
+
 
   }
 
