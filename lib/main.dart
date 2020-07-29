@@ -77,9 +77,6 @@ class MyApp extends StatelessWidget {
             return SplashPage();
           }
           if (state is AuthenticationSuccess) {
-            
-            
-            
             return DashBoard(token: state.token,);
           }
           if (state is ErrorAuthenticationState) {
