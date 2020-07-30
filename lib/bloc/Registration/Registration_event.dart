@@ -52,9 +52,10 @@ class RegistrationButtonPressed extends RegistrationEvent {
 
      if (isCreated) {
        
-        
+        yield RegistrationSuccessState('Registration Successful');
+        await Future.delayed(Duration(milliseconds: 1200 ));
        bloc.authenticationBloc.add(AuthenticationStarted());
-       yield RegistrationSuccessState('Registration Successful');
+       
         yield RegistrationInitial();
 
 
