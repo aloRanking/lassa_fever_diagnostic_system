@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Registration/Registration_page.dart';
 import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
 import 'package:lassafeverdiagnosticsystem/screens/dash_board.dart';
+import 'package:lassafeverdiagnosticsystem/screens/register_screen.dart';
 
 import 'package:lassafeverdiagnosticsystem/screens/splash_screen.dart';
 import 'package:lassafeverdiagnosticsystem/widgets/loading_indicator.dart';
@@ -85,6 +87,12 @@ class MyApp extends StatelessWidget {
           if (state is AuthenticationInProgress) {
             return LoadingIndicator();
           }
+           if (state is RegistrationPageState) {
+            return RegistrationPage(userRepository: userRepository);
+          }
+         /*  if (state is ProfilePageState) {
+            return RegistrationPage(userRepository: userRepository);
+          } */
         },
       ),
     );

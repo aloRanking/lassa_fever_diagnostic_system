@@ -39,3 +39,7 @@ class ErrorAuthenticationState extends AuthenticationState {
 }
 
 class AuthenticationInProgress extends AuthenticationState {}
+
+class RegistrationPageState extends AuthenticationState {}
+
+class ProfilePageState extends AuthenticationState {}

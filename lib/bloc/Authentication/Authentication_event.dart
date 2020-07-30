@@ -27,7 +27,7 @@ class LoadAuthenticationEvent extends AuthenticationEvent {
     try {
       yield AuthenticationInitial();
       await Future.delayed(Duration(seconds: 1));
-     // yield AuthenticationSuccess('Hello world');
+     yield RegistrationPageState();
     } catch (_, stackTrace) {
       developer.log('$_', name: 'LoadAuthenticationEvent', error: _, stackTrace: stackTrace);
       yield ErrorAuthenticationState( _?.toString());
@@ -109,4 +109,38 @@ class AuthenticationLoggedOut extends AuthenticationEvent {
   }
    
   }
+
+  class LoadRegistrationEvent extends AuthenticationEvent {
+   
+  @override
+  Stream<AuthenticationState> applyAsync(
+      {AuthenticationState currentState, AuthenticationBloc bloc}) async* {
+    try {
+      //await Future.delayed(Duration(seconds: 1));
+     yield RegistrationPageState();
+    } catch (_, stackTrace) {
+      developer.log('$_', name: 'LoadAuthenticationEvent', error: _, stackTrace: stackTrace);
+      yield ErrorAuthenticationState( _?.toString());
+    }
+  }
+}
+
+class ProfileScreenEvent extends AuthenticationEvent {
+   
+  @override
+  Stream<AuthenticationState> applyAsync(
+      {AuthenticationState currentState, AuthenticationBloc bloc}) async* {
+    try {
+      //await Future.delayed(Duration(seconds: 1));
+     yield ProfilePageState();
+    } catch (_, stackTrace) {
+      developer.log('$_', name: 'LoadAuthenticationEvent', error: _, stackTrace: stackTrace);
+      yield ErrorAuthenticationState( _?.toString());
+    }
+  }
+}
+
+  
+
+
 

@@ -19,18 +19,18 @@ class UnRegistrationState extends RegistrationState {
   String toString() => 'UnRegistrationState';
 }
 
-//class LoginInitial extends LoginState {}
+class RegistrationInitial extends RegistrationState {}
 
 class RegistrationProgress extends RegistrationState {}
 
 /// Initialized
-class InRegistrationState extends RegistrationState {
+class RegistrationSuccessState extends RegistrationState {
   final String hello;
 
-  InRegistrationState(this.hello) : super([hello]);
+  RegistrationSuccessState(this.hello) : super([hello]);
 
   @override
-  String toString() => 'InRegistrationState $hello';
+  String toString() => 'RegistrationSuccessState $hello';
 
   
 

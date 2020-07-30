@@ -29,7 +29,7 @@ class RegistrationInEvent extends RegistrationEvent {
     try {
       yield UnRegistrationState();
       await Future.delayed(Duration(seconds: 1));
-      yield InRegistrationState('Hello world');
+      yield RegistrationSuccessState('Hello world');
     } catch (_, stackTrace) {
       developer.log('$_', name: 'LoadLoginEvent', error: _, stackTrace: stackTrace);
       yield ErrorRegistrationState( _?.toString());
@@ -51,8 +51,15 @@ class RegistrationButtonPressed extends RegistrationEvent {
      final isCreated = await bloc.userRepository.createMember(user: regUser);
 
      if (isCreated) {
+       
+        
        bloc.authenticationBloc.add(AuthenticationStarted());
-      yield InRegistrationState('Registration Successful');
+       yield RegistrationSuccessState('Registration Successful');
+        yield RegistrationInitial();
+
+
+
+     
 
        
      } else {
@@ -63,5 +70,5 @@ class RegistrationButtonPressed extends RegistrationEvent {
       developer.log('$_', name: 'LoadRegistrationEvent', error: _, stackTrace: stackTrace);
       yield ErrorRegistrationState( _?.toString());
     }
-  }
+}
 }

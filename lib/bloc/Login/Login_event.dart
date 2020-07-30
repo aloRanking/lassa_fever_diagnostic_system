@@ -65,9 +65,28 @@ class LoginButtonPressed extends LoginEvent {
         yield LoginInitial();
     } catch (_, stackTrace) {
       developer.log('$_', name: 'LoginButtonPressed', error: _, stackTrace: stackTrace);
-      yield ErrorLoginState( _?.toString());
+      yield ErrorLoginState('Unable To Login');
     }
   }
     
+  }
+
+  class SignUpButtonPressed extends LoginEvent {
+  @override
+  Stream<LoginState> applyAsync({LoginState currentState, LoginBloc bloc}) async*{
+
+    
+    try {
+      bloc.authenticationBloc.add(LoadRegistrationEvent());
+      yield LoginInitial();
+      
+    } catch (_, stackTrace) {
+      developer.log('$_', name: 'LoginButtonPressed', error: _, stackTrace: stackTrace);
+      yield ErrorLoginState('Unable To Login');
+    
+    }
+
+
+  }
   }
 
