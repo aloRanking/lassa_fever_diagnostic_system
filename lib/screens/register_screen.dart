@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_bloc.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_event.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Login/index.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Registration/Registration_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Registration/index.dart';
@@ -21,7 +23,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
   RegUser regUser = RegUser();
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _textController = new TextEditingController();
 
+@override
+  void dispose() {
+    
+    super.dispose();
+    _textController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -41,6 +50,18 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           );
         }
+        
+
+                     if(state is RegistrationSuccessState){
+
+                        Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text('${state.hello}'),
+                        backgroundColor: Colors.green,
+                        ));
+                        
+                        //_textController.clear();
+
+                     }
       },
 
     child:BlocBuilder<RegistrationBloc, RegistrationState>(
@@ -57,7 +78,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   InkWell(
                         onTap: () {
-                          Navigator.pop(context);
+                           BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationStarted()
+        
+      );
                         },
                         child: Icon(Icons.arrow_back_ios, color: Colors.white)),
 
@@ -85,6 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         shudTextCenter: true,
                         hintText: "First Name",
                         shudObscure: false,
+                        //controller: _textController,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter some text';
@@ -99,12 +123,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         shudTextCenter: true,
                         hintText: "Last Name",
                         shudObscure: false,
+
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter some text';
                           }
                           return null;
                         },
+                        //controller: _textController,
                         saved: (String val) =>
                             setState(() => regUser.lastname = val.trim()),
                       ),
@@ -119,6 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
+                       // controller: _textController,
                         saved: (String val) =>
                             setState(() => regUser.email = val.trim()),
                       ),
@@ -134,16 +161,16 @@ class _RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
+                        //controller: _textController,
                         saved: (String val) =>
                             setState(() => regUser.phonenumber = val.trim()),
 
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                     
                       Container(
-                        height: 50,
-                        width: screenWidth * 0.90,
+                        margin: EdgeInsets.all(10),
+                        height: 60,
+                        width: screenWidth * 0.93,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
@@ -173,15 +200,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                     
                       CustomizedFormField(
                         screenWidth: screenWidth,
                         shudTextCenter: true,
                         hintText: "Password",
                         shudObscure: true,
                         keyBoardType: TextInputType.visiblePassword,
+                        //controller: _textController,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please input your password';
@@ -214,17 +240,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                      }
 
-                     if (state is ErrorRegistrationState) {
-                       Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('${state.errorMessage}')));
-                     }
-
-                     if(state is InRegistrationState){
-
-                        Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('${state.hello}')));
-
-
+                    
 
                     /*  UserRepository userRepository = UserRepository();
 
@@ -233,7 +249,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     // you'd often call a server or save the information in a database.
                    /*  Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('Processing Data'))); */
-                  }
+                  
                 },
                 child: Container(
                   width: screenWidth * 0.90 - 20,
