@@ -29,9 +29,8 @@ class CustomizedFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextFormField(
-        
+      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10 ),
+      child: TextFormField(        
         style: TextStyle(color: Colors.white,
         fontSize: 18),
         textAlign: shudTextCenter? TextAlign.center : TextAlign.start,
