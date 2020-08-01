@@ -61,7 +61,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
               ],
             ));
           }
-           if (currentState is InRegistrationState) {
+           if (currentState is RegistrationSuccessState) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
