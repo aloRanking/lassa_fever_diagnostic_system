@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_bloc.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_event.dart';
 
 import 'package:lassafeverdiagnosticsystem/bloc/get_user_detail_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
@@ -53,10 +56,11 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
             return BuildErrorWidget(error:snapshot.data.error);
           } */
           return _builddashHeading(snapshot.data);
+
                             } else if (snapshot.hasError) {
                               return BuildErrorWidget(error:snapshot.error);
                             } else {
-                              return BuildLoadingWidget();
+                              return Center(child: BuildLoadingWidget());
                             }
                           },
                         );
@@ -197,7 +201,8 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
                                 color: Color(0xFFBEA7E5),
                                 icon: Icons.call,
                                 onPressed: () {
-                                   _launchURL();
+                                 //  _launchURL();
+                                  BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedOut());
                                 },
                               ),
                             ),

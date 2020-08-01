@@ -24,6 +24,8 @@ class DashBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+               var screeWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
    
 
      var payload= parseJwt(token);
@@ -37,13 +39,11 @@ class DashBoard extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  DashBoardHeading(email: payload['sub']),
-                  
-                ],
-              ),
+              height: screenHeight,
+              width: screeWidth,
+
+              
+              child: DashBoardHeading(email: payload['sub']),
             ),
           ),
         ),
