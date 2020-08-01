@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_bloc.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_event.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Login/index.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Registration/Registration_page.dart';
 
@@ -78,6 +80,12 @@ class _LoginFormState extends State<LoginForm> {
           username: _username,
           password: _password,
         ),
+      );
+    }
+
+    _onSIgnButtonPressed() {
+      BlocProvider.of<AuthenticationBloc>(context).add( LoadRegistrationEvent()
+        
       );
     }
 
@@ -184,9 +192,7 @@ class _LoginFormState extends State<LoginForm> {
 
                                           saved: (String val) => setState(() =>  _password= val),
                                         ),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
+                                       
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -221,6 +227,14 @@ class _LoginFormState extends State<LoginForm> {
                                                 SnackBar(
                                                     content:
                                                         Text('Processing Data')));
+                                          }
+
+                                          if (state is ErrorLoginState ) {
+                                            Scaffold.of(context).showSnackBar(
+                                                SnackBar(
+                                                    content:
+                                                        Text('Processing Data')));
+                                            
                                           }
                                             
                                             /* state is! LoginInProgress
@@ -264,10 +278,12 @@ class _LoginFormState extends State<LoginForm> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    UserRepository userRepository = UserRepository();
+                                    /* UserRepository userRepository = UserRepository();
                                     Navigator.push(
                                         context, _createRoute(RegistrationPage(userRepository: userRepository ,)));
-                                    print('Sign up clicked');
+                                    print('Sign up clicked'); */
+
+                                    _onSIgnButtonPressed();
                                   },
                                   child: FadeAnimation(
                                       1.5,
