@@ -4,9 +4,12 @@ import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_event.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Survey/Survey_page.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Survey/index.dart';
 
 import 'package:lassafeverdiagnosticsystem/bloc/get_user_detail_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
+import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
 import 'package:lassafeverdiagnosticsystem/screens/diagnosis_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/prevention_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/profile_screen.dart';
@@ -71,6 +74,8 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
     var screenHeight = MediaQuery.of(context).size.height;
 
               RegUser user = data;
+
+              UserRepository userRepository = UserRepository();
 
 
               return  Column(
@@ -175,7 +180,7 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
                                 icon: Icons.folder_open,
                                 onPressed: () {
                                   Navigator.of(context)
-                                      .push(_createRoute(SurveyScreen()));
+                                      .push(_createRoute(page:SurveyPage(user: user, userRepository: userRepository,)));
                                 },
                               ),
                             ),
@@ -186,7 +191,7 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
                                   icon: Icons.person,
                                   onPressed: () {
                                     Navigator.of(context)
-                                        .push(_createRoute(Profilescreen(regUser:user)));
+                                        .push(_createRoute(page:Profilescreen(regUser:user)));
                                   }),
                             )
                           ],
@@ -201,8 +206,8 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
                                 color: Color(0xFFBEA7E5),
                                 icon: Icons.call,
                                 onPressed: () {
-                                 //  _launchURL();
-                                  BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedOut());
+                                   _launchURL();
+                                 // BlocProvider.of<AuthenticationBloc>(context).add(AuthenticationLoggedOut());
                                 },
                               ),
                             ),
@@ -289,7 +294,7 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
                 
             }
 
-            Route _createRoute(Widget page) {
+            Route _createRoute({Widget page, UserRepository userRepository}) {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionDuration: Duration(milliseconds: 600),
