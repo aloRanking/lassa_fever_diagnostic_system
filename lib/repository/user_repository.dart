@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' ;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as fluSecure;
 import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
+import 'package:lassafeverdiagnosticsystem/models/survey_model.dart';
 import 'package:lassafeverdiagnosticsystem/models/token.dart';
 
 //import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -15,6 +16,7 @@ class UserRepository {
   String loginUrl = '$_baseUrl/authenticate';
   String registerURL = '$_baseUrl/register';
   String getUserURL = '$_baseUrl/user';
+  String surveyURL = '$_baseUrl/survey';
 
 /* static BaseOptions options = BaseOptions(
    baseUrl: "$_baseUrl",
@@ -104,6 +106,42 @@ class UserRepository {
 
 
   }
+
+  Future<String> postSurvey({
+     Survey survey
+  }) async {
+
+    String value = await storage.read(key: 'token');
+
+    try {
+      Response response = await _dio.post(
+        surveyURL,
+        data: {
+          'full_name': survey.fullname,
+          'details': survey.getDetails
+        },
+        options: Options(
+       headers: {'Authorization': 'Bearer $value'}
+      )
+      );
+      print(response);
+
+      if (response.statusCode == 200) {
+        var surveyResponse = response.data.toString();
+
+        return surveyResponse;
+       
+      } else {
+        return null;
+      }
+    } catch (e) {
+     
+
+      return null;
+    }
+  }
+
+
 
 
 /*  Future<MenuResponse> getAllMenus() async{
