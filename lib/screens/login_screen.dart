@@ -84,9 +84,7 @@ class _LoginFormState extends State<LoginForm> {
     }
 
     _onSIgnButtonPressed() {
-      BlocProvider.of<AuthenticationBloc>(context).add( LoadRegistrationEvent()
-        
-      );
+      BlocProvider.of<AuthenticationBloc>(context).add(LoadRegistrationEvent());
     }
 
     return BlocListener<LoginBloc, LoginState>(
@@ -102,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
       },
       child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
         return SingleChildScrollView(
-                  child: Stack(
+          child: Stack(
             children: <Widget>[
               Container(
                 height: screenHeight,
@@ -132,7 +130,8 @@ class _LoginFormState extends State<LoginForm> {
                             1,
                             Text(
                               "Login",
-                              style: TextStyle(color: Colors.white, fontSize: 40),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 40),
                             )),
                         SizedBox(
                           height: 10,
@@ -141,7 +140,8 @@ class _LoginFormState extends State<LoginForm> {
                             1.2,
                             Text(
                               "Lassa Fever Diagnostic System",
-                              style: TextStyle(color: Colors.white, fontSize: 18),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
                             )),
                         SizedBox(
                           height: 5,
@@ -164,15 +164,14 @@ class _LoginFormState extends State<LoginForm> {
                                               color: Colors.white),
                                           keyBoardType:
                                               TextInputType.emailAddress,
-
                                           validator: (value) {
                                             if (!emailRegex.hasMatch(value)) {
                                               return 'Please enter a valid Email';
                                             }
                                             return null;
                                           },
-
-                                           saved: (String val) => setState(() =>  _username= val),
+                                          saved: (String val) =>
+                                              setState(() => _username = val),
                                         ),
                                         CustomizedFormField(
                                           screenWidth: screenWidth,
@@ -189,10 +188,9 @@ class _LoginFormState extends State<LoginForm> {
                                             }
                                             return null;
                                           },
-
-                                          saved: (String val) => setState(() =>  _password= val),
+                                          saved: (String val) =>
+                                              setState(() => _password = val),
                                         ),
-                                       
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -210,48 +208,23 @@ class _LoginFormState extends State<LoginForm> {
                                           height: 10,
                                         ),
                                         RaisedButton(
-                                          onPressed: (){
+                                          onPressed: () {
+                                            if (_formKey.currentState
+                                                .validate()) {
+                                              _formKey.currentState.save();
 
-                                             if (_formKey.currentState.validate()) {
-                                             _formKey.currentState.save();
-
-                                             _onLoginButtonPressed();
-
-                                            //  Navigator.push(context,
-                                            //  MaterialPageRoute(builder: (context)=>DashBoard()));
-
-                                            // If the form is valid, display a snackbar. In the real world,
-                                            // you'd often call a server or save the information in a database.
-
-                                            Scaffold.of(context).showSnackBar(
-                                                SnackBar(
-                                                    content:
-                                                        Text('Processing Data')));
-                                          }
-
-                                          if (state is ErrorLoginState ) {
-                                            Scaffold.of(context).showSnackBar(
-                                                SnackBar(
-                                                    content:
-                                                        Text('Processing Data')));
-                                            
-                                          }
-                                            
-                                            /* state is! LoginInProgress
-                                              ? _onLoginButtonPressed
-                                              : null  */
-                                              
-                                              },
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),                   
- 
-                                         
-
+                                              _onLoginButtonPressed();
+                                            }
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
                                           color: Colors.lightBlue,
                                           elevation: 10.0,
                                           padding: EdgeInsets.all(15),
-
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
                                                 'LOGIN',
@@ -261,16 +234,22 @@ class _LoginFormState extends State<LoginForm> {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              SizedBox(width:15),
+                                              SizedBox(width: 15),
                                               Container(
-                                          child: state is LoginInProgress
-                                            ? CircularProgressIndicator(backgroundColor: Colors.white,)
-                                            : null,
-                                        ),
+                                                child: state is LoginInProgress
+                                                    ? SizedBox(
+                                                        width: 25,
+                                                        height: 25,
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                        ))
+                                                    : null,
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        
                                       ],
                                     )),
                                 SizedBox(

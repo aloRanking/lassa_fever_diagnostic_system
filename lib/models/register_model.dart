@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class RegUser {
+  int id;
    String first_name;
    String last_name;
    String email;
@@ -10,7 +11,11 @@ class RegUser {
    String image;
    String res_state;
    String res_home_address;
-   
+
+ int get getId => id;
+
+ set setId(int id) => this.id = id;
+
  String get firstname => first_name;
 
  set firstname(String value) => first_name = value;
@@ -47,9 +52,12 @@ class RegUser {
  String get reshome_address => res_home_address;
 
  set reshome_address(String value) => res_home_address = value;
+   
+ 
 
  
   RegUser({
+    this.id,
     this.first_name,
     this.last_name,
     this.email,
@@ -62,6 +70,7 @@ class RegUser {
   });
 
   RegUser copyWith({
+    int id,
     String first_name,
     String last_name,
     String email,
@@ -87,6 +96,7 @@ class RegUser {
 
   Map<String, dynamic> toMap() {
     return {
+      'int' : id,
       'first_name': first_name,
       'last_name': last_name,
       'email': email,
@@ -103,6 +113,7 @@ class RegUser {
     if (map == null) return null;
   
     return RegUser(
+      id: map['id'],
       first_name: map['first_name'],
       last_name: map['last_name'],
       email: map['email'],
@@ -121,7 +132,7 @@ class RegUser {
 
   @override
   String toString() {
-    return 'User(first_name: $first_name, last_name: $last_name, email: $email, password: $password, gender: $gender, phone_number: $phone_number, image: $image, res_state: $res_state, res_home_address: $res_home_address)';
+    return 'User(int: $id, first_name: $first_name, last_name: $last_name, email: $email, password: $password, gender: $gender, phone_number: $phone_number, image: $image, res_state: $res_state, res_home_address: $res_home_address)';
   }
 
   @override
@@ -129,6 +140,7 @@ class RegUser {
     if (identical(this, o)) return true;
   
     return o is RegUser &&
+    o.id == id &&
       o.first_name == first_name &&
       o.last_name == last_name &&
       o.email == email &&
@@ -142,7 +154,9 @@ class RegUser {
 
   @override
   int get hashCode {
-    return first_name.hashCode ^
+    return 
+    id.hashCode^
+    first_name.hashCode ^
       last_name.hashCode ^
       email.hashCode ^
       password.hashCode ^
