@@ -141,6 +141,37 @@ class UserRepository {
     }
   }
 
+   Future<String> updateMember({
+     RegUser regUser
+  }) async {
+
+    String value = await storage.read(key: 'token');
+
+    try {
+      Response response = await _dio.post(
+        surveyURL, queryParameters: {'id': regUser.getId},
+        data: regUser.copyWith(),
+        options: Options(
+       headers: {'Authorization': 'Bearer $value'}
+      )
+      );
+      print(response);
+
+      if (response.statusCode == 200) {
+        var surveyResponse = response.data.toString();
+
+        return surveyResponse;
+       
+      } else {
+        return null;
+      }
+    } catch (e) {
+     
+
+      return null;
+    }
+  }
+
 
 
 
