@@ -44,7 +44,7 @@ class CustomizedFormField extends StatelessWidget {
 
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(color: Colors.white),
+          hintStyle: TextStyle(color: Colors.grey),
           prefixIcon: icon,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -70,7 +70,7 @@ class CustomizedFormField extends StatelessWidget {
           errorBorder:OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30.0)),
             borderSide: BorderSide(
-              color: Colors.redAccent,
+              color: Colors.redAccent[100],
               width: 3.0,
             ), 
         ),

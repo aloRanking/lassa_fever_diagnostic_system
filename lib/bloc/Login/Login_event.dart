@@ -60,9 +60,14 @@ class LoginButtonPressed extends LoginEvent {
           user: username,
           pass: password,
         );
-
-        bloc.authenticationBloc.add(AuthenticationLoggedIn(token: token));
+        if (token != null) {
+          bloc.authenticationBloc.add(AuthenticationLoggedIn(token: token));
         yield LoginInitial();
+          
+        }else
+        yield ErrorLoginState("Unable to Login");
+
+        
     } catch (_, stackTrace) {
       developer.log('$_', name: 'LoginButtonPressed', error: _, stackTrace: stackTrace);
       yield ErrorLoginState('Unable To Login');

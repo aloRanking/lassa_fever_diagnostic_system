@@ -11,6 +11,7 @@ class RegUser {
    String image;
    String res_state;
    String res_home_address;
+   String error;
 
  int get getId => id;
 
@@ -67,7 +68,22 @@ class RegUser {
     this.image,
     this.res_state,
     this.res_home_address,
+    this.error
   });
+
+  RegUser.withError(String errorValue) :
+  id= 0,
+      first_name = '',
+      last_name = '',
+      email = '',
+      password = '',
+      gender = '',
+      phone_number = '',
+      image = '',
+      res_state = '',
+      res_home_address = '',
+      error= errorValue;
+
 
   RegUser copyWith({
     int id,
@@ -123,6 +139,7 @@ class RegUser {
       image: map['image'],
       res_state: map['res_state'],
       res_home_address: map['res_home_address'],
+      error: ''
     );
   }
 

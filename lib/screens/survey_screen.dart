@@ -144,8 +144,11 @@ class _SurveyScreenState extends State<SurveyScreen> {
             children: <Widget>[
               TextFormField(
                 maxLines: 5,
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 decoration: InputDecoration(
-                  hintStyle: TextStyle(color: Colors.white),
+                  hintStyle: TextStyle(color: Colors.grey),
                   hintText:
                       'Give us feedback about the app and what would you like us to add',
                   border: OutlineInputBorder(
