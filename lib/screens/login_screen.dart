@@ -61,11 +61,12 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  /* final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController(); */
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   String _username;
   String _password;
+  UserRepository userRepository = UserRepository();
 
   //LoginBloc get loginBloc => widget.loginBloc;
 
@@ -170,9 +171,11 @@ class _LoginFormState extends State<LoginForm> {
                                             }
                                             return null;
                                           },
+                                          controller: _usernameController,
                                           saved: (String val) =>
                                               setState(() => _username = val),
                                         ),
+
                                         CustomizedFormField(
                                           screenWidth: screenWidth,
                                           shudTextCenter: false,
@@ -188,6 +191,7 @@ class _LoginFormState extends State<LoginForm> {
                                             }
                                             return null;
                                           },
+                                          controller: _passwordController,
                                           saved: (String val) =>
                                               setState(() => _password = val),
                                         ),
@@ -257,12 +261,10 @@ class _LoginFormState extends State<LoginForm> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    /* UserRepository userRepository = UserRepository();
-                                    Navigator.push(
-                                        context, _createRoute(RegistrationPage(userRepository: userRepository ,)));
-                                    print('Sign up clicked'); */
+                                    
+                                    singUpButton(context);
 
-                                    _onSIgnButtonPressed();
+                                    //_onSIgnButtonPressed();
                                   },
                                   child: FadeAnimation(
                                       1.5,
@@ -286,6 +288,19 @@ class _LoginFormState extends State<LoginForm> {
         );
       }),
     );
+  }
+
+  void singUpButton(BuildContext context) async{
+   final result =  await Navigator.push(
+        context, _createRoute(RegistrationPage(userRepository: userRepository ,)));
+    print('Sign up clicked');
+
+    setState(() {
+      _usernameController.text =result[0];
+      _passwordController.text =result[1];
+    });
+
+    
   }
 
 /* Container _textFormFieldContainer(BuildContext context, var _formKey) {

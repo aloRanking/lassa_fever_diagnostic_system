@@ -87,12 +87,7 @@ class MyApp extends StatelessWidget {
           if (state is AuthenticationInProgress) {
             return LoadingIndicator();
           }
-           if (state is RegistrationPageState) {
-            return RegistrationPage(userRepository: userRepository);
-          }
-         /*  if (state is ProfilePageState) {
-            return RegistrationPage(userRepository: userRepository);
-          } */
+          
         },
       ),
     );

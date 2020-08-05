@@ -65,7 +65,7 @@ class LoginButtonPressed extends LoginEvent {
         yield LoginInitial();
           
         }else
-        yield ErrorLoginState("Unable to Login");
+        yield ErrorLoginState("Incorrect Email or Password");
 
         
     } catch (_, stackTrace) {

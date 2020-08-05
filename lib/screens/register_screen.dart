@@ -56,9 +56,9 @@ class _RegisterPageState extends State<RegisterPage> {
             content: Text('${state.hello}'),
             backgroundColor: Colors.green,
           ));
-
-          //_textController.clear();
-
+        }
+        if (state is RegistrationInitial) {
+          Navigator.pop(context, [regUser.getEmail, regUser.getPassword]);
         }
       },
       child: BlocBuilder<RegistrationBloc, RegistrationState>(
