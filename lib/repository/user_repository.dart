@@ -37,14 +37,12 @@ class UserRepository {
       );
       print(response);
 
-      if (response.statusCode == 200) {
+      
         var jwt = Token.fromJson(response.data);
         String receivedToken = jwt.token;
 
         return receivedToken;
-      } else {
-        return null;
-      }
+      
     } catch (e) {
       var err = Token.withError("$e");
 
