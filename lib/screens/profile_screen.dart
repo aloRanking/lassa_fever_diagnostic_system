@@ -108,7 +108,7 @@ class _ProfilescreenState extends State<Profilescreen> {
                     return null;
                   },
 
-                  controller: initialValue(widget.regUser.firstname ),
+                  controller: initialValue('${widget.regUser.firstname} ' +'${widget.regUser.lastname}' ),
                 ),
                 CustomizedFormField(
                   screenWidth: screenWidth,
