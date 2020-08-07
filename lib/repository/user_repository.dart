@@ -10,6 +10,7 @@ import 'package:lassafeverdiagnosticsystem/models/token.dart';
 
 class UserRepository {
   static String _baseUrl = 'https://lassa-fever-diagnosis.herokuapp.com/api/v1/lfds';
+  //static String _baseUrl = 'http://localhost:8080/api/v1/lfds';
 
   final storage = new fluSecure.FlutterSecureStorage();
 
@@ -17,6 +18,8 @@ class UserRepository {
   String registerURL = '$_baseUrl/register';
   String getUserURL = '$_baseUrl/user';
   String surveyURL = '$_baseUrl/survey';
+  String updateURL = '$_baseUrl/user';
+  
 
 /* static BaseOptions options = BaseOptions(
    baseUrl: "$_baseUrl",
@@ -139,35 +142,61 @@ class UserRepository {
     }
   }
 
-   Future<String> updateMember({
-     RegUser regUser
+   Future<bool> updateMember({
+     RegUser regUser, int id
   }) async {
 
     String value = await storage.read(key: 'token');
 
     try {
-      Response response = await _dio.post(
-        surveyURL, queryParameters: {'id': regUser.getId},
-        data: regUser.copyWith(),
+      Response response = await _dio.put(
+        '$updateURL/$id',
+        data:{
+    "first_name": regUser.firstname,
+    "last_name":regUser.lastname,
+    "email": regUser.getEmail,
+    "password" : regUser.getPassword,
+
+    "gender": regUser.getGender,
+    "phone_number":regUser.phonenumber,
+    "image": regUser.getImage,
+  
+    "res_state":regUser.resstate,
+    "res_home_address":regUser.reshome_address,
+
+},
         options: Options(
        headers: {'Authorization': 'Bearer $value'}
       )
       );
       print(response);
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 202) {
         var surveyResponse = response.data.toString();
 
-        return surveyResponse;
+       // return surveyResponse;
+       return true;
        
       } else {
-        return null;
+        return false;
       }
-    } catch (e) {
-     
+    } on DioError catch(e) {
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx and is also not 304.
+    if(e.response != null) {
+        print(e.response.data);
+        print(e.response.headers);
+        print(e.response.request);
 
-      return null;
+        return false;
+    } else{
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.request);
+        print(e.message);
+        return false;
     }
+  }
+
   }
 
 

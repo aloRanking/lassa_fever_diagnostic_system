@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class RegUser {
-  int id;
+  int user_id;
    String first_name;
    String last_name;
    String email;
@@ -13,9 +13,9 @@ class RegUser {
    String res_home_address;
    String error;
 
- int get getId => id;
+ int get getUser_id => user_id;
 
- set setId(int id) => this.id = id;
+ set setUser_id(int id) => this.user_id = id;
 
  String get firstname => first_name;
 
@@ -58,7 +58,7 @@ class RegUser {
 
  
   RegUser({
-    this.id,
+    this.user_id,
     this.first_name,
     this.last_name,
     this.email,
@@ -72,7 +72,7 @@ class RegUser {
   });
 
   RegUser.withError(String errorValue) :
-  id= 0,
+  user_id= 0,
       first_name = '',
       last_name = '',
       email = '',
@@ -86,7 +86,7 @@ class RegUser {
 
 
   RegUser copyWith({
-    int id,
+    int user_id,
     String first_name,
     String last_name,
     String email,
@@ -112,7 +112,7 @@ class RegUser {
 
   Map<String, dynamic> toMap() {
     return {
-      'int' : id,
+      'user_id' : user_id,
       'first_name': first_name,
       'last_name': last_name,
       'email': email,
@@ -129,7 +129,7 @@ class RegUser {
     if (map == null) return null;
   
     return RegUser(
-      id: map['id'],
+      user_id: map['user_id'],
       first_name: map['first_name'],
       last_name: map['last_name'],
       email: map['email'],
@@ -149,7 +149,7 @@ class RegUser {
 
   @override
   String toString() {
-    return 'User(int: $id, first_name: $first_name, last_name: $last_name, email: $email, password: $password, gender: $gender, phone_number: $phone_number, image: $image, res_state: $res_state, res_home_address: $res_home_address)';
+    return 'User(int: $user_id, first_name: $first_name, last_name: $last_name, email: $email, password: $password, gender: $gender, phone_number: $phone_number, image: $image, res_state: $res_state, res_home_address: $res_home_address)';
   }
 
   @override
@@ -157,7 +157,7 @@ class RegUser {
     if (identical(this, o)) return true;
   
     return o is RegUser &&
-    o.id == id &&
+    o.user_id == user_id &&
       o.first_name == first_name &&
       o.last_name == last_name &&
       o.email == email &&
@@ -172,7 +172,7 @@ class RegUser {
   @override
   int get hashCode {
     return 
-    id.hashCode^
+    user_id.hashCode^
     first_name.hashCode ^
       last_name.hashCode ^
       email.hashCode ^

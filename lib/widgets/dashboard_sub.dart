@@ -4,6 +4,7 @@ import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_event.dart';
+import 'package:lassafeverdiagnosticsystem/bloc/Profile/Profile_page.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Survey/Survey_page.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Survey/index.dart';
 
@@ -191,7 +192,7 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
                                   icon: Icons.person,
                                   onPressed: () {
                                     Navigator.of(context)
-                                        .push(_createRoute(page:Profilescreen(regUser:user)));
+                                        .push(_createRoute(page:ProfilePage(user: user, userRepository: userRepository,)));
                                   }),
                             )
                           ],
