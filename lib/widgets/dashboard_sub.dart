@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lassafeverdiagnosticsystem/animations/FadeAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/animations/SlideAnimation.dart';
 import 'package:lassafeverdiagnosticsystem/bloc/Authentication/Authentication_bloc.dart';
@@ -10,8 +11,10 @@ import 'package:lassafeverdiagnosticsystem/bloc/Survey/index.dart';
 
 import 'package:lassafeverdiagnosticsystem/bloc/get_user_detail_bloc.dart';
 import 'package:lassafeverdiagnosticsystem/models/register_model.dart';
+import 'package:lassafeverdiagnosticsystem/repository/location_repository.dart';
 import 'package:lassafeverdiagnosticsystem/repository/user_repository.dart';
 import 'package:lassafeverdiagnosticsystem/screens/diagnosis_screen.dart';
+import 'package:lassafeverdiagnosticsystem/screens/map_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/prevention_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/profile_screen.dart';
 import 'package:lassafeverdiagnosticsystem/screens/survey_screen.dart';
@@ -33,10 +36,19 @@ class DashBoardHeading extends StatefulWidget {
 }
 
 class _DashBoardHeadingState extends State<DashBoardHeading> {
+  LocationRepository _locationRepository = LocationRepository();
+  LatLng loc;
   @override
   void initState() {
     getUserDetailBloc..getMenuList(widget.email);
+    getUserLocation();
     super.initState();
+  }
+
+  void getUserLocation() async{
+    loc = await _locationRepository.getUserLocation();
+
+
   }
 
   _launchURL() async {
@@ -218,8 +230,9 @@ class _DashBoardHeadingState extends State<DashBoardHeading> {
                                   color: Color(0xFFA64E90),
                                   icon: Icons.settings,
                                   onPressed: () {
-                                    /* Navigator.of(context)
-                                        .push(_createRoute(Profilescreen())); */
+                                     Navigator.of(context)
+                                       .push(_createRoute(page:MapScreen( latlng : loc)));
+
                                   }),
                             )
                           ],
