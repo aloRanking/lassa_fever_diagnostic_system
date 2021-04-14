@@ -186,12 +186,12 @@ class UserRepository {
     if(e.response != null) {
         print(e.response.data);
         print(e.response.headers);
-        print(e.response.request);
+        //print(e.response.request);
 
         return false;
     } else{
         // Something happened in setting up or sending the request that triggered an Error
-        print(e.request);
+       // print(e.request);
         print(e.message);
         return false;
     }

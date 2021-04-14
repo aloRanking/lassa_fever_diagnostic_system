@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lassafeverdiagnosticsystem/models/diagnose_model.dart';
+import 'package:lassafeverdiagnosticsystem/models/diagnose_model2.dart';
+import 'package:lassafeverdiagnosticsystem/screens/result_screen.dart';
 import 'package:lassafeverdiagnosticsystem/utils/constants.dart';
 import 'package:lassafeverdiagnosticsystem/widgets/step.dart';
 
@@ -18,8 +20,13 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
   QuestionAnswer _ans5;
   QuestionAnswer _ans6;
   QuestionAnswer _ans7;
+  QuestionAnswer _ans8;
+  QuestionAnswer _ans9;
+  QuestionAnswer _ans10;
+  QuestionAnswer _ans11;
+  QuestionAnswer _ans12;
 
-  Diagnose diagnose = Diagnose();
+  Diagnose2 diagnose = Diagnose2();
   int currentStep;
 
   List<StepState> _listState;
@@ -30,7 +37,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         state: currentStep == 0
             ? _listState[1]
             : currentStep > 0 ? _listState[2] : _listState[0],
-        title: Text('Do you feel weak?',
+        title: Text('Do you Headache?',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -51,9 +58,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                       setState(() {
                         _ans1 = value;
                         if (_ans1 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                          diagnose.isHeadache = true;
+                        }
                       });
                     },
                   ),
@@ -71,10 +77,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans1 = value;
-                        if (_ans1 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans1 == QuestionAnswer.No) {
+                          diagnose.isHeadache = false;
+                        }
                       });
                     },
                   ),
@@ -89,7 +94,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         state: currentStep == 1
             ? _listState[1]
             : currentStep > 1 ? _listState[2] : _listState[0],
-        title: Text('Are you Coughing',
+        title: Text('Are you Feeling Dizzy?',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -109,10 +114,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans2 = value;
-                        if (_ans2 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans2 == QuestionAnswer.Yes)
+                          diagnose.isDizzy = true;
+
                       });
                     },
                   ),
@@ -130,10 +134,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans2 = value;
-                        if (_ans2 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans2 == QuestionAnswer.No)
+
+                          diagnose.isDizzy = false;
                       });
                     },
                   ),
@@ -148,7 +151,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         state: currentStep == 2
             ? _listState[1]
             : currentStep > 2 ? _listState[2] : _listState[0],
-        title: Text('Do you have Headache?',
+        title: Text('Do you have ChestPain?',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -168,10 +171,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans3 = value;
-                        if (_ans3 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans3 == QuestionAnswer.Yes)
+                          diagnose.isChestPain = true;
+
                       });
                     },
                   ),
@@ -189,10 +191,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans3 = value;
-                        if (_ans3 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans3 == QuestionAnswer.No)
+                          diagnose.isChestPain = false;
                       });
                     },
                   ),
@@ -207,7 +207,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         state: currentStep == 3
             ? _listState[1]
             : currentStep > 3 ? _listState[2] : _listState[0],
-        title: Text('Do you have Sore Throat?',
+        title: Text('Are you Vomiting?',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -227,10 +227,9 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans4 = value;
-                        if (_ans4 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans4 == QuestionAnswer.Yes)
+                          diagnose.isVomiting = true;
+
                       });
                     },
                   ),
@@ -248,10 +247,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans4 = value;
-                        if (_ans4 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans4 == QuestionAnswer.No)
+                          diagnose.isVomiting = false;
                       });
                     },
                   ),
@@ -266,7 +263,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         state: currentStep == 4
             ? _listState[1]
             : currentStep > 4 ? _listState[2] : _listState[0],
-        title: Text('Do you have dry Cough?',
+        title: Text('Any Form of Paralysis?',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -286,10 +283,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans5 = value;
-                        if (_ans5 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans5 == QuestionAnswer.Yes)
+                          diagnose.isParalysis = true;
                       });
                     },
                   ),
@@ -307,10 +302,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans5 = value;
-                        if (_ans5 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans5 == QuestionAnswer.No)
+                          diagnose.isParalysis = false;
                       });
                     },
                   ),
@@ -325,7 +318,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         state: currentStep == 5
             ? _listState[1]
             : currentStep > 5 ? _listState[2] : _listState[0],
-        title: Text('Are you vomitting?',
+        title: Text('Slurring Speech?',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -345,10 +338,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans6 = value;
-                        if (_ans6 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans6 == QuestionAnswer.Yes)
+                          diagnose.isSlurSpeech = true;
                       });
                     },
                   ),
@@ -366,10 +357,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans6 = value;
-                        if (_ans6 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans6 == QuestionAnswer.No)
+                          diagnose.isSlurSpeech = false;
                       });
                     },
                   ),
@@ -384,7 +373,7 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
         state: currentStep == 6
             ? _listState[1]
             : currentStep > 6 ? _listState[2] : _listState[0],
-        title: Text('Do you have Diarrheoa?',
+        title: Text('Is your breath short?',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -404,10 +393,8 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans7 = value;
-                        if (_ans7 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans7 == QuestionAnswer.Yes)
+                          diagnose.isShortBreath = true;
                       });
                     },
                   ),
@@ -425,10 +412,288 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     onChanged: (QuestionAnswer value) {
                       setState(() {
                         _ans7 = value;
-                        if (_ans7 == QuestionAnswer.Yes) {
-                          diagnose.isWeak = true;
-                        } else
-                          diagnose.isWeak = false;
+                        if (_ans7 == QuestionAnswer.No)
+                          diagnose.isShortBreath = false;
+                      });
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        isActive: true,
+      ),
+
+      Step(
+        state: currentStep == 7
+            ? _listState[1]
+            : currentStep > 7 ? _listState[2] : _listState[0],
+        title: Text('Are you feeling Nauseated?',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            )),
+        content: Container(
+          child: Row(
+            children: <Widget>[
+              Flexible(
+                child: ListTile(
+                  title: const Text(
+                    'Yes',
+                    style: TextStyle(
+
+                        color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.Yes,
+                    groupValue: _ans8,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans8 = value;
+                        if (_ans8 == QuestionAnswer.Yes)
+                          diagnose.isChestPain = true;
+
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Flexible(
+                child: ListTile(
+                  title: Text(
+                    'No',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.No,
+                    groupValue: _ans8,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans8 = value;
+                        if (_ans8 == QuestionAnswer.No)
+                          diagnose.isChestPain = false;
+                      });
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        isActive: true,
+      ),
+      Step(
+        state: currentStep == 8
+            ? _listState[1]
+            : currentStep > 8 ? _listState[2] : _listState[0],
+        title: Text('Are you feeling tired?',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            )),
+        content: Container(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: ListTile(
+                  title: const Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.Yes,
+                    groupValue: _ans9,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans9 = value;
+                        if (_ans9 == QuestionAnswer.Yes)
+                          diagnose.isTiredness = true;
+
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListTile(
+                  title: Text(
+                    'No',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.No,
+                    groupValue: _ans9,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans9 = value;
+                        if (_ans9 == QuestionAnswer.No)
+                          diagnose.isTiredness = false;
+                      });
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        isActive: true,
+      ),
+      Step(
+        state: currentStep == 9
+            ? _listState[1]
+            : currentStep > 9 ? _listState[2] : _listState[0],
+        title: Text('Do you have stomach pain?',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            )),
+        content: Container(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: ListTile(
+                  title: const Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.Yes,
+                    groupValue: _ans10,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans10 = value;
+                        if (_ans10 == QuestionAnswer.Yes)
+                          diagnose.isStomachPain = true;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListTile(
+                  title: Text(
+                    'No',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.No,
+                    groupValue: _ans10,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans10 = value;
+                        if (_ans10 == QuestionAnswer.No)
+                          diagnose.isStomachPain = false;
+                      });
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        isActive: true,
+      ),
+      Step(
+        state: currentStep == 10
+            ? _listState[1]
+            : currentStep > 10 ? _listState[2] : _listState[0],
+        title: Text('Do you experience blurry vision?',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            )),
+        content: Container(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: ListTile(
+                  title: const Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.Yes,
+                    groupValue: _ans11,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans11 = value;
+                        if (_ans11 == QuestionAnswer.Yes)
+                          diagnose.isBlurVision = true;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListTile(
+                  title: Text(
+                    'No',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.No,
+                    groupValue: _ans11,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans11 = value;
+                        if (_ans11 == QuestionAnswer.No)
+                          diagnose.isBlurVision = false;
+                      });
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        isActive: true,
+      ),
+      Step(
+        state: currentStep == 11
+            ? _listState[1]
+            : currentStep > 11 ? _listState[2] : _listState[0],
+        title: Text('Do you have excess body fat?',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            )),
+        content: Container(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: ListTile(
+                  title: const Text(
+                    'Yes',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.Yes,
+                    groupValue: _ans12,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans12 = value;
+                        if (_ans12 == QuestionAnswer.Yes)
+                          diagnose.isBodyFat = true;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListTile(
+                  title: Text(
+                    'No',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  leading: Radio(
+                    value: QuestionAnswer.No,
+                    groupValue: _ans12,
+                    onChanged: (QuestionAnswer value) {
+                      setState(() {
+                        _ans12 = value;
+                        if (_ans12 == QuestionAnswer.No)
+                          diagnose.isBodyFat = false;
                       });
                     },
                   ),
@@ -493,16 +758,21 @@ class _DiagnoseScreenState extends State<DiagnoseScreen> {
                     child: AlertDialog(
                       title: new Text("Diagnose Complete"),
                       content: new Text(
-                        "Be Paitient...",
+                        "Done",
                       ),
                       actions: <Widget>[
-                        new FlatButton(
-                          child: new Text("Close"),
+                        new TextButton(
+                          child: new Text("View Result"),
                           onPressed: () {
-                            print('is weak is ${diagnose.isWeak}');
-                            print('is coughin is ${diagnose.isCoughing}');
-                            print('is vomitting is ${diagnose.isVomitting}');
-                            setState(() => complete = false);
+                            print('is headach  is ${diagnose.isHeadache}');
+                            print('is dizzy is ${diagnose.isDizzy}');
+                           // print('is vomitting is ${diagnose.isVomitting}');
+                            setState(() {
+                              complete = false;
+                              currentStep = 0;
+
+                            });
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ResultScreen(diagnose: diagnose)));
                           },
                         ),
                       ],

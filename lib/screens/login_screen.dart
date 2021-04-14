@@ -140,7 +140,7 @@ class _LoginFormState extends State<LoginForm> {
                         FadeAnimation(
                             1.2,
                             Text(
-                              "Lassa Fever Diagnostic System",
+                              "Diagnostic System",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),
                             )),

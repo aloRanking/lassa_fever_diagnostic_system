@@ -27,7 +27,7 @@ class DashBoardCard extends StatelessWidget {
           child: Row(
             children: <Widget>[
               SizedBox(
-                width: 10,
+                width: 8,
               ),
               Container(
                 height: 45,
@@ -42,12 +42,12 @@ class DashBoardCard extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 10,
+                width: 7,
               ),
               Text(
                 dashText,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 17,
                   color: Colors.white,
                 ),
               ),
